@@ -37,30 +37,18 @@
                 ?>
 
                 <?php foreach ($subMenu as $sm) : ?>
-                    <li class="nav-item">
+                    <?php if ($title == $sm['title']) : ?>
+                        <li class="nav-item active">
+                        <?php else : ?>
+                        <li class="nav-item">
+                        <?php endif; ?>
                         <a href="<?= base_url($sm['url']); ?>" class="nav-link">
                             <i class="<?= $sm['icon']; ?>"></i>
-                            <span><?= $sm['title']; ?></span></a>
-                    </li>
+                            <span><?= $sm['title']; ?></span>
+                        </a>
+                        </li>
+                    <?php endforeach; ?>
                 <?php endforeach; ?>
-
-            <?php endforeach; ?>
-
-
-            <!-- <li class="menu-header">Administrator</li>
-            <li class="nav-item">
-                <a href="#" class="nav-link"><i class="fas fa-fire"></i><span>Dashboard</span></a>
-            </li>
-
-            <li class="menu-header">USER</li>
-            <li class="nav-item">
-                <a href="#" class="nav-link"><i class="fas fa-fire"></i><span>Profile</span></a>
-            </li>
-
-            <li class="menu-header">Pages</li>
-            <li class="nav-item">
-                <a href="#" class="nav-link"><i class="fas fa-fire"></i><span>Dashboard</span></a>
-            </li> -->
         </ul>
     </aside>
 </div>
