@@ -24,3 +24,17 @@ function is_logged_in()
         }
     }
 }
+
+function checkAccess($role_id, $menu_id)
+{
+    $rs = get_instance();
+
+    $rs->db->where('role_id', $role_id);
+    $rs->db->where('menu_id', $menu_id);
+    $result = $rs->db->get('user_access_menu');
+
+    if ($result->num_rows() > 0) {
+        # code...
+        return "checked = 'checked'";
+    }
+}

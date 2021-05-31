@@ -42,7 +42,7 @@
                         <?php else : ?>
                         <li class="nav-item">
                         <?php endif; ?>
-                        <a href="<?= base_url($sm['url']); ?>" class="nav-link">
+                        <a href="<?= base_url($sm['url']); ?>" class="nav-link pb-0">
                             <i class="<?= $sm['icon']; ?>"></i>
                             <span><?= $sm['title']; ?></span>
                         </a>
