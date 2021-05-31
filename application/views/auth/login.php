@@ -43,7 +43,7 @@
                         </div>
                     </div>
                     <div class="simple-footer">
-                        Copyright &copy; Stisla 2018
+                        Copyright &copy; TA Politeknik Harapan Bersama <?= date('Y'); ?>
                     </div>
                 </div>
             </div>
