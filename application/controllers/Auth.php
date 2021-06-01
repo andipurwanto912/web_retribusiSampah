@@ -8,8 +8,13 @@ class Auth extends CI_Controller
     parent::__construct();
     $this->load->library('form_validation');
   }
+
   public function index()
   {
+    if ($this->session->userdata('email')) {
+      redirect('user');
+    }
+
     $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email');
     $this->form_validation->set_rules('password', 'Password', 'trim|required');
     if ($this->form_validation->run() == false) {
@@ -85,6 +90,10 @@ class Auth extends CI_Controller
 
   public function registration()
   {
+    if ($this->session->userdata('email')) {
+      redirect('user');
+    }
+
     $this->form_validation->set_rules('name', 'Nama Lengkap', 'required|trim');
     $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email|is_unique[tb_user.email]', [
       'is_unique' => 'email sudah terdaftar!'
@@ -104,7 +113,7 @@ class Auth extends CI_Controller
       $data = [
         'nama_lengkap' => htmlspecialchars($this->input->post('name', true)),
         'email' => htmlspecialchars($this->input->post('email', true)),
-        'photo' => 'contoh.png',
+        'photo' => 'avatar-1.png',
         'password' => password_hash($this->input->post('password'), PASSWORD_DEFAULT),
         'role_id' => 2,
         'is_active' => 1,

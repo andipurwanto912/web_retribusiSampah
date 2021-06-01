@@ -4,8 +4,18 @@
         <div class="section-header">
             <h1><?= $title; ?></h1>
         </div>
+
+        <div class="row">
+            <div class="col-6">
+
+                <!-- form validation error -->
+                <!-- success -->
+                <?= $this->session->flashdata('pesan'); ?>
+            </div>
+        </div>
+
         <div class="section-body">
-            <div class="card mb-3" style="max-width: 540px;">
+            <div class="card mb-3" style="max-width: 50%">
                 <div class="row no-gutters">
                     <div class="col-md-4">
                         <div class="card-body">

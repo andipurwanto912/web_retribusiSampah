@@ -13,7 +13,7 @@
                         <div class="card-body">
                             <form method="POST" action="<?= base_url('auth/registration') ?>">
                                 <div class="form-group">
-                                    <label for="email">Full Name</label>
+                                    <label for="email">Nama Lengkap</label>
                                     <input id="name" type="text" class="form-control" name="name" value="<?= set_value('name') ?>">
                                     <?= form_error('name', '<small class="text-danger">', '</small>'); ?>
                                 </div>
