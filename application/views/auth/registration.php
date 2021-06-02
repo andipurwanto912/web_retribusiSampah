@@ -26,6 +26,9 @@
                                     <div class="form-group col-6">
                                         <label for="password" class="d-block">Password</label>
                                         <input id="password" type="password" class="form-control pwstrength" data-indicator="pwindicator" name="password">
+                                        <small id="passwordHelpBlock" class="form-text text-muted">
+                                            Your password must be 8-20 characters long
+                                        </small>
                                         <?= form_error('password', '<small class="text-danger">', '</small>'); ?>
                                     </div>
                                     <div class="form-group col-6">

@@ -79,4 +79,68 @@ class User extends CI_Controller
             redirect('user');
         }
     }
+
+    public function changePassword()
+    {
+        $data['title'] = 'Change Password';
+        $data['user'] = $this->db->get_where('tb_user', ['email' =>
+        $this->session->userdata('email')])->row_array();
+
+        $this->form_validation->set_rules('currentPassword', 'current password', 'required|trim');
+        $this->form_validation->set_rules('newPassword1', 'new password', 'required|trim|min_length[8]|matches[newPassword2]');
+        $this->form_validation->set_rules('newPassword2', 'confirm new password', 'required|trim|min_length[8]|matches[newPassword1]');
+
+        if ($this->form_validation->run() == false) {
+            # code...
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/sidebar', $data);
+            $this->load->view('templates/topbar', $data);
+            $this->load->view('user/changePassword', $data);
+            $this->load->view('templates/footer');
+        } else {
+            $currentPassword = $this->input->post('currentPassword');
+            $newPassword = $this->input->post('newPassword1');
+            if (!password_verify($currentPassword, $data['user']['password'])) {
+
+                $this->session->set_flashdata('pesan', '<div class="alert alert-danger alert-dismissible show fade">
+                          <div class="alert-body">
+                            <button class="close" data-dismiss="alert">
+                              <span>×</span>
+                            </button>
+                            wrong current password!
+                          </div>
+                        </div>');
+                redirect('user/changePassword');
+            } else {
+                if ($currentPassword == $newPassword) {
+                    $this->session->set_flashdata('pesan', '<div class="alert alert-warning alert-dismissible show fade">
+                      <div class="alert-body">
+                        <button class="close" data-dismiss="alert">
+                          <span>×</span>
+                        </button>
+                        new password cannot be the same as current password!
+                      </div>
+                    </div>');
+                    redirect('user/changePassword');
+                } else {
+                    // password benar
+                    $password_hash = password_hash($newPassword, PASSWORD_DEFAULT);
+
+                    $this->db->set('password', $password_hash);
+                    $this->db->where('email', $this->session->userdata('email'));
+                    $this->db->update('tb_user');
+
+                    $this->session->set_flashdata('pesan', '<div class="alert alert-success alert-dismissible show fade">
+                      <div class="alert-body">
+                        <button class="close" data-dismiss="alert">
+                          <span>×</span>
+                        </button>
+                       password changed!
+                      </div>
+                    </div>');
+                    redirect('user/changePassword');
+                }
+            }
+        }
+    }
 }
