@@ -51,11 +51,11 @@
                                                 <td><?= $sm['icon']; ?></td>
                                                 <td><?= $sm['is_active']; ?></td>
                                                 <td>
-                                                    <a href="#">
+                                                    <!-- <a href="#">
                                                         <button class="btn btn-success btn-sm"> <i class="fa fa-edit"></i>
                                                             Edit </button>
-                                                    </a>
-                                                    <a href="#" onclick="javascript: return confirm('Apakah Anda yakin ingin menghapus data ini?')">
+                                                    </a> -->
+                                                    <a href="<?= base_url('menu/hapusSubmenu/') ?><?= $sm['id']; ?>" onclick="javascript: return confirm('Apakah Anda yakin ingin menghapus data ini?')">
                                                         <button class="btn btn-danger btn-sm"> <i class="fa fa-trash"></i>
                                                             Hapus </button>
                                                     </a>

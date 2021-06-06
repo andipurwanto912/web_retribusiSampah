@@ -39,6 +39,22 @@ class Menu extends CI_Controller
     }
   }
 
+  public function hapusMenu($id)
+  {
+    $this->db->where('id', $id);
+    $this->db->delete('user_menu');
+
+    $this->session->set_flashdata('pesan', '<div class="alert alert-danger alert-dismissible show fade">
+                      <div class="alert-body">
+                        <button class="close" data-dismiss="alert">
+                          <span>×</span>
+                        </button>
+                        menu berhasil dihapus!
+                      </div>
+                    </div>');
+    redirect('menu');
+  }
+
   public function subMenu()
   {
     $data['title'] = 'Submenu Management';
@@ -81,5 +97,21 @@ class Menu extends CI_Controller
                     </div>');
       redirect('menu/subMenu');
     }
+  }
+
+  public function hapusSubmenu($id)
+  {
+    $this->db->where('id', $id);
+    $this->db->delete('user_sub_menu');
+
+    $this->session->set_flashdata('pesan', '<div class="alert alert-danger alert-dismissible show fade">
+                      <div class="alert-body">
+                        <button class="close" data-dismiss="alert">
+                          <span>×</span>
+                        </button>
+                        submenu berhasil dihapus!
+                      </div>
+                    </div>');
+    redirect('menu/subMenu');
   }
 }

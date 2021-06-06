@@ -40,11 +40,11 @@
                                                 <th scope=" row"><?= $i; ?></th>
                                                 <td><?= $m['menu']; ?></td>
                                                 <td>
-                                                    <a href="#">
+                                                    <!-- <a href="#">
                                                         <button class="btn btn-success btn-sm"> <i class="fa fa-edit"></i>
                                                             Edit </button>
-                                                    </a>
-                                                    <a href="#" onclick="javascript: return confirm('Apakah Anda yakin ingin menghapus data ini?')">
+                                                    </a> -->
+                                                    <a href="<?= base_url('menu/hapusMenu/') ?><?= $m['id']; ?>" onclick="javascript: return confirm('Apakah Anda yakin ingin menghapus data ini?')">
                                                         <button class="btn btn-danger btn-sm"> <i class="fa fa-trash"></i>
                                                             Hapus </button>
                                                     </a>
