@@ -30,7 +30,7 @@
                         </div>
                         <div class="page-search">
                             <div class="mt-3">
-                                <a href="<?= base_url('user') ?>">← Back to Dashboard</a>
+                                <a href="<?= base_url('user') ?>">&larr; Back to Dashboard</a>
                             </div>
                         </div>
                     </div>
