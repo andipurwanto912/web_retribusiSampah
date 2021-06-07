@@ -10,18 +10,10 @@
                 <div class="col">
 
                     <!-- form validation error -->
-                    <!-- <?= form_error('menu', '<div class="alert alert-danger alert-dismissible show fade" role="alert">
-                        <button class="close" data-dismiss="alert">
-                          <span>×</span>
-                        </button>', '</div>');
-                            ?> -->
-
-                    <!-- validation success -->
-                    <!-- <?= $this->session->flashdata('pesan'); ?> -->
 
                     <div class="card">
                         <div class="card-header">
-                            <a href="" class="btn btn-icon btn-primary" data-toggle="modal" data-target="#masyModal"><i class="fas fa-plus"></i> Add Masyarakat</a>
+                            <a href="" data-toggle="modal" class="btn btn-icon btn-primary" onclick="addMasy()"><i class="fas fa-plus"></i> Add Masyarakat</a>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -83,7 +75,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="<?= base_url('masyarakat/addMasy'); ?>" method="post">
+            <form action="#" id="formMasy">
                 <div class="modal-body">
                     <div class="form-group">
                         <label>NIK</label>
@@ -109,7 +101,7 @@
 
                     <div class="form-group">
                         <label for="alamat">Alamat</label>
-                        <input type="text" class="form-control" id="alamat" name="alamat" requireds>
+                        <input type="text" class="form-control" id="alamat" name="alamat" required>
                     </div>
 
                     <div class="form-group ">
@@ -143,7 +135,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Save changes</button>
+                    <button type="button" id="btnSave" class="btn btn-primary" onclick="save()">Save changes</button>
                 </div>
             </form>
         </div>

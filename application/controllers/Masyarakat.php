@@ -19,6 +19,12 @@ class Masyarakat extends CI_Controller
      * map to /index.php/welcome/<method_name>
      * @see https://codeigniter.com/user_guide/general/urls.html
      */
+    public function __construct()
+    {
+        parent::__construct();
+        $this->load->model('masyModel');
+    }
+
     public function index()
     {
         $data['title'] = 'Masyarakat';
@@ -32,5 +38,27 @@ class Masyarakat extends CI_Controller
         $this->load->view('templates/topbar', $data);
         $this->load->view('masyarakat/index', $data);
         $this->load->view('templates/footer');
+    }
+
+    public function addMasy()
+    {
+        $data = [
+            'nik' => htmlspecialchars($this->input->post('nik')),
+            'nama_lengkap' => htmlspecialchars($this->input->post('nama_lengkap')),
+            'tempat_lahir' => htmlspecialchars($this->input->post('tempat_lahir')),
+            'tanggal_lahir' => htmlspecialchars($this->input->post('tanggal_lahir')),
+            'alamat' => htmlspecialchars($this->input->post('alamat')),
+            'rt' => htmlspecialchars($this->input->post('rt')),
+            'rw' => htmlspecialchars($this->input->post('rw')),
+            'kelurahan' => htmlspecialchars($this->input->post('kelurahan')),
+            'kecamatan' => htmlspecialchars($this->input->post('kecamatan')),
+        ];
+        if ($this->masyModel->create($data) > 0) {
+            $pesan['status'] = 'success';
+        } else {
+            $pesan['status'] = 'failed';
+        };
+
+        $this->output->set_content_type('application/json')->set_output(json_encode($pesan));
     }
 }

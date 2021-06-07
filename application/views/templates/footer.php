@@ -16,6 +16,7 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.nicescroll/3.7.6/jquery.nicescroll.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+
 <script src="<?= base_url(); ?>assets/modules/tooltip.js"></script>
 <script src="<?= base_url(); ?>assets/js/stisla.js"></script>
 
@@ -55,6 +56,48 @@
             }
         });
     });
+</script>
+
+<script>
+    var modal = $('#masyModal');
+    var formMasy = $('#formMasy');
+    var btnSave = $('#btnSave');
+    var tableData = $('#tableData');
+
+    $(document).ready(function() {
+        tableData.DataTable();
+    });
+
+    function addMasy() {
+        formMasy[0].reset();
+        modal.modal('show');
+    }
+
+    function reloadTable() {
+        tableData.DataTable().ajax.reload();
+    }
+
+    function save() {
+        btnSave.text('Saving...');
+        btnSave.attr('disable', true);
+        url = "<?= base_url('masyarakat/addMasy'); ?>"
+
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: formMasy.serialize(),
+            dataType: "JSON",
+            success: function(response) {
+                if (response.status = 'success') {
+                    modal.modal('hide');
+                    reloadTable();
+                }
+            },
+            error: function() {
+                console.log('error data')
+            }
+        });
+    }
 </script>
 
 </body>
