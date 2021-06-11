@@ -44,7 +44,7 @@
                             </div>
                         </div>
                         <div class="card-footer text-right">
-                            <button class="btn btn-primary mr-1" type="submit">Edit</button>
+                            <button class="btn btn-primary" type="submit"><i class="fas fa-edit"></i>Simpan Perubahan</button>
                             <!-- <button class="btn btn-secondary" type="" href=" <?= base_url('user') ?>""></button> -->
                         </div>
                     </div>

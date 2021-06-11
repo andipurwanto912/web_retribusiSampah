@@ -5,55 +5,62 @@
             <h1><?= $title; ?></h1>
         </div>
         <div class="section-body">
-            <h2 class="section-title">Tabel Role</h2>
+            <h2 class="section-title">Tabel Masyarakat</h2>
             <div class="row">
                 <div class="col">
 
                     <!-- form validation error -->
+                    <?= form_error('nik', '<div class="alert alert-danger alert-dismissible show fade" role="alert">
+                        <button class="close" data-dismiss="alert">
+                          <span>×</span>
+                        </button>', '</div>');
+                    ?>
+                    <?= form_error('nama_lengkap', '<div class="alert alert-danger alert-dismissible show fade" role="alert">
+                        <button class="close" data-dismiss="alert">
+                          <span>×</span>
+                        </button>', '</div>');
+                    ?>
+
+                    <!-- validation success -->
+                    <?= $this->session->flashdata('pesan'); ?>
 
                     <div class="card">
                         <div class="card-header">
-                            <a href="" data-toggle="modal" class="btn btn-icon btn-primary" onclick="addMasy()"><i class="fas fa-plus"></i> Add Masyarakat</a>
+                            <a href="" class="btn btn-primary" data-toggle="modal" data-target="#masyModal"><i class="fas fa-plus"></i> Add Masyarakat</a>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table class="table table-striped" id="table-1">
+                                <table class="table table-striped table-hover" id="table-1">
                                     <thead>
                                         <tr>
                                             <th class="">#</th>
-                                            <th>Nik</th>
-                                            <th>Nama Lengkap</th>
+                                            <th>NIK</th>
+                                            <th>Nama Masyarakat</th>
                                             <th>Alamat</th>
-                                            <th>RT</th>
-                                            <th>RW</th>
                                             <th>Kelurahan</th>
+                                            <th>Seri</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php $i = 1; ?>
-                                        <?php foreach ($masyarakat as $m) : ?>
-                                            <tr class="">
-                                                <th scope=" row"><?= $i; ?></th>
-                                                <td><?= $m['nik']; ?></td>
-                                                <td><?= $m['nama_lengkap']; ?></td>
-                                                <td><?= $m['alamat']; ?></td>
-                                                <td><?= $m['rt']; ?></td>
-                                                <td><?= $m['rw']; ?></td>
-                                                <td><?= $m['kelurahan']; ?></td>
+                                        <?php $no = 1;
+                                        foreach ($masyarakat as $m) : ?>
+                                            <tr>
+                                                <td><?= $no++ ?></td>
+                                                <td><?= $m->nik ?></td>
+                                                <td><?= $m->nama_lengkap ?></td>
+                                                <td><?= $m->alamat ?></td>
+                                                <td><?= $m->kelurahan ?></td>
+                                                <td><?= $m->seri ?></td>
                                                 <td>
-                                                    <a href="#">
-                                                        <button class="btn btn-icon btn-info btn-sm"> <i class="fas fa-info"></i>Detail</button>
+                                                    <a href="<?= base_url('masyarakat/edit/' . $m->id) ?>">
+                                                        <button class="btn btn-success btn-sm"> <i class="fa fa-edit"></i> </button>
                                                     </a>
-                                                    <a href="#">
-                                                        <button class="btn btn-icon btn-success btn-sm"> <i class="fa fa-edit"></i>Edit</button>
-                                                    </a>
-                                                    <a href="#" onclick="javascript: return confirm('Apakah Anda yakin ingin menghapus data ini?')">
-                                                        <button class="btn btn-icon btn-danger btn-sm"> <i class="fa fa-trash"></i>Hapus</button>
+                                                    <a href="<?= base_url('masyarakat/deleteMasy/' . $m->id); ?>" onclick="javascript: return confirm('Apakah Anda yakin ingin menghapus data ini?')">
+                                                        <button class="btn btn-danger btn-sm"> <i class="fa fa-trash"></i></button>
                                                     </a>
                                                 </td>
                                             </tr>
-                                            <?php $i++; ?>
                                         <?php endforeach; ?>
                                     </tbody>
                                 </table>
@@ -70,12 +77,12 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="roleModalLabel">Add Masyarakat</h5>
+                <h5 class="modal-title" id="seriModalLabel">Add Seri</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="#" id="formMasy">
+            <form action="<?= base_url('masyarakat'); ?>" method="post">
                 <div class="modal-body">
                     <div class="form-group">
                         <label>NIK</label>
@@ -87,55 +94,57 @@
                         <input type="text" class="form-control" id="nama_lengkap" name="nama_lengkap" required>
                     </div>
 
+                    <div class="form-group">
+                        <label>Tempat Lahir</label>
+                        <input type="text" class="form-control" id="tempat_lahir" name="tempat_lahir" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Tanggal Lahir</label>
+                        <input type="date" class="form-control" id="tanggal_lahir" name="tanggal_lahir" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Alamat</label>
+                        <input type="text" class="form-control" id="alamat" name="alamat" required>
+                    </div>
+
                     <div class="form-row">
                         <div class="form-group col-md-6">
-                            <label for="inputEmail4">Tempat Lahir</label>
-                            <input type="text" class="form-control" name="tempat_lahir" id="tempat_lahir" required>
+                            <label for="">RT</label>
+                            <input type="text" class="form-control" id="rt" name="rt" required>
                         </div>
 
                         <div class="form-group col-md-6">
-                            <label for="inputPassword4">Tanggal Lahir</label>
-                            <input type="date" class="form-control" id="tanggal_lahir" name="tanggal_lahir" required>
+                            <label for="rw">RW</label>
+                            <input type="text" class="form-control" id="rw" name="rw" required>
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label for="alamat">Alamat</label>
-                        <input type="text" class="form-control" id="alamat" name="alamat" required>
+                        <label>Kelurahan</label>
+                        <input type="text" class="form-control" id="kelurahan" name="kelurahan" required>
                     </div>
 
-                    <div class="form-group ">
-                        <label for="kecamatan">Kecamatan</label>
-                        <select id="kecamatan" name="kecamatan" class="form-control">
-                            <option selected>Pilih Kecamatan</option>
-                            <option>Tegal Barat</option>
+                    <div class="form-group">
+                        <label>Kecamatan</label>
+                        <input type="text" class="form-control" id="kecamatan" name="kecamatan" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Seri</label>
+                        <select class="form-control selectric" name="seri" id="seri" required>
+                            <option selected>Pilih Seri</option>
+                            <?php foreach ($seri as $s) : ?>
+                                <option value="<?= $s->seri ?>"><?= $s->seri ?></option>
+                            <?php endforeach; ?>
                         </select>
-                    </div>
-
-                    <div class="form-row">
-                        <div class="form-group col-md-8">
-                            <label for="keluarahan">Kelurahan</label>
-                            <select id="kelurahan" name="kelurahan" class="form-control">
-                                <option selected>Pilih Kelurahan</option>
-                                <option>Debong Lor</option>
-                            </select>
-                        </div>
-
-                        <div class="form-group col-md-2">
-                            <label for="rw">RT</label>
-                            <input type="text" class="form-control" id="rt" name="rt">
-                        </div>
-
-                        <div class="form-group col-md-2">
-                            <label for="rw">RW</label>
-                            <input type="text" class="form-control" name="rw" id="rw">
-                        </div>
                     </div>
 
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" id="btnSave" class="btn btn-primary" onclick="save()">Save changes</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
                 </div>
             </form>
         </div>

@@ -25,7 +25,7 @@
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table class="table table-striped" id="table-1">
+                                <table class="table table-striped text-center table-hover" id="table-1">
                                     <thead>
                                         <tr>
                                             <th class="">#</th>
@@ -39,14 +39,14 @@
                                             <tr class="">
                                                 <th scope=" row"><?= $i; ?></th>
                                                 <td><?= $m['menu']; ?></td>
-                                                <td>
+                                                <td cals>
                                                     <!-- <a href="#">
                                                         <button class="btn btn-success btn-sm"> <i class="fa fa-edit"></i>
                                                             Edit </button>
                                                     </a> -->
                                                     <a href="<?= base_url('menu/hapusMenu/') ?><?= $m['id']; ?>" onclick="javascript: return confirm('Apakah Anda yakin ingin menghapus data ini?')">
                                                         <button class="btn btn-danger btn-sm"> <i class="fa fa-trash"></i>
-                                                            Hapus </button>
+                                                        </button>
                                                     </a>
                                                 </td>
                                             </tr>

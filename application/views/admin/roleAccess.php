@@ -18,7 +18,7 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table class="table table-striped" id="table-1">
+                                <table class="table table-striped table-hover" id="table-1">
                                     <thead>
                                         <tr>
                                             <th class="">#</th>
@@ -43,6 +43,10 @@
                                     </tbody>
                                 </table>
                             </div>
+                        </div>
+                        <div class="card-footer text-right">
+                            <a class="btn btn-primary mr-1" type="" href="<?= base_url('admin/role') ?>">Back</a>
+                            <!-- <button class="btn btn-secondary" type="" href=" <?= base_url('user') ?>""></button> -->
                         </div>
                     </div>
                 </div>

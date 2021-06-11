@@ -37,7 +37,7 @@
 
                             </div>
                             <div class="card-footer text-right">
-                                <button class="btn btn-primary mr-1" type="submit">Change Password</button>
+                                <button class="btn btn-primary" type="submit"> <i class="fas fa-key"></i> Change Password</button>
                             </div>
                         </div>
                     </form>

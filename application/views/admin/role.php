@@ -25,7 +25,7 @@
                         </div> -->
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table class="table table-striped" id="table-1">
+                                <table class="table table-striped table-hover" id="table-1">
                                     <thead>
                                         <tr>
                                             <th class="">#</th>
@@ -43,12 +43,6 @@
                                                     <a href="<?= base_url('admin/roleaccess/') . $r['id']; ?>">
                                                         <button class="btn btn-warning btn-sm"> <i class="fas fa-universal-access"></i>Access</button>
                                                     </a>
-                                                    <!-- <a href="#">
-                                                        <button class="btn btn-success btn-sm"> <i class="fa fa-edit"></i>Edit</button>
-                                                    </a>
-                                                    <a href="#" onclick="javascript: return confirm('Apakah Anda yakin ingin menghapus data ini?')">
-                                                        <button class="btn btn-danger btn-sm"> <i class="fa fa-trash"></i>Hapus</button>
-                                                    </a> -->
                                                 </td>
                                             </tr>
                                             <?php $i++; ?>

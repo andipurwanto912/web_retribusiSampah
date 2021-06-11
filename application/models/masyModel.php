@@ -3,9 +3,13 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class masyModel extends CI_Model
 {
-    public function create($data)
+    public function get_data($table)
     {
-        $this->db->insert('tb_masyarakat', $data);
-        return $this->db->affected_rows();
+        return $this->db->get($table);
+    }
+
+    public function insert_data($data, $table)
+    {
+        $this->db->insert($table, $data);
     }
 }

@@ -28,7 +28,7 @@
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table class="table table-striped" id="table-1">
+                                <table class="table table-striped table-hover" id="table-1">
                                     <thead>
                                         <tr>
                                             <th class="">#</th>
@@ -56,8 +56,7 @@
                                                             Edit </button>
                                                     </a> -->
                                                     <a href="<?= base_url('menu/hapusSubmenu/') ?><?= $sm['id']; ?>" onclick="javascript: return confirm('Apakah Anda yakin ingin menghapus data ini?')">
-                                                        <button class="btn btn-danger btn-sm"> <i class="fa fa-trash"></i>
-                                                            Hapus </button>
+                                                        <button class="btn btn-danger btn-sm"> <i class="fa fa-trash"></i></button>
                                                     </a>
                                                 </td>
                                             </tr>
@@ -92,7 +91,7 @@
 
                     <div class="form-group">
                         <label>Menu</label>
-                        <select class="form-control" name="menu_id" id="menu_id">
+                        <select class="form-control selectric" name="menu_id" id="menu_id">
                             <option selected>Pilih Menu</option>
                             <?php foreach ($menu as $m) : ?>
                                 <option value="<?= $m['id']; ?>"><?= $m['menu']; ?></option>
