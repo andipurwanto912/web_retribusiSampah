@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class seriModel extends CI_Model
+class dataModel extends CI_Model
 {
     public function get_data($table)
     {

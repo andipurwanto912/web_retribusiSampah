@@ -53,10 +53,10 @@
                                                 <td><?= $m->kelurahan ?></td>
                                                 <td><?= $m->seri ?></td>
                                                 <td>
-                                                    <a href="<?= base_url('masyarakat/edit/' . $m->id) ?>">
+                                                    <a href="<?= base_url('masyarakat/editM/' . $m->id_masy) ?>">
                                                         <button class="btn btn-success btn-sm"> <i class="fa fa-edit"></i> </button>
                                                     </a>
-                                                    <a href="<?= base_url('masyarakat/deleteMasy/' . $m->id); ?>" onclick="javascript: return confirm('Apakah Anda yakin ingin menghapus data ini?')">
+                                                    <a href="<?= base_url('masyarakat/deleteMasy/' . $m->id_masy); ?>" onclick="javascript: return confirm('Apakah Anda yakin ingin menghapus data ini?')">
                                                         <button class="btn btn-danger btn-sm"> <i class="fa fa-trash"></i></button>
                                                     </a>
                                                 </td>
@@ -77,7 +77,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="seriModalLabel">Add Seri</h5>
+                <h5 class="modal-title" id="masyModalLabel">Add Masyarakat</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
