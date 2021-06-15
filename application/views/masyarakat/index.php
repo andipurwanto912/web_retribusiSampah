@@ -66,6 +66,11 @@
                                                     <a href="<?= base_url('masyarakat/editM/' . $m->id_masy) ?>">
                                                         <button class="btn btn-success btn-sm"> <i class="fa fa-edit"></i> </button>
                                                     </a>
+
+                                                    <a href="<?= base_url('masyarakat/showM/' . $m->id_masy) ?>">
+                                                        <button class="btn btn-info btn-sm"> <i class="fa fa-eye"></i> </button>
+                                                    </a>
+
                                                     <a href="<?= base_url('masyarakat/deleteMasy/' . $m->id_masy); ?>" onclick="javascript: return confirm('Apakah Anda yakin ingin menghapus data ini?')">
                                                         <button class="btn btn-danger btn-sm"> <i class="fa fa-trash"></i></button>
                                                     </a>
@@ -82,7 +87,7 @@
     </section>
 </div>
 
-<!-- Modal -->
+<!-- Add Modal -->
 <div class="modal fade" id="masyModal" tabindex="-1" role="dialog" aria-labelledby="masyModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">

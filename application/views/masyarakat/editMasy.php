@@ -9,46 +9,6 @@
             <div class="row">
                 <div class="col-12 col-md-6 col-lg-6">
                     <!-- form validation error -->
-                    <?= form_error('nama_lengkap', '<div class="alert alert-danger alert-dismissible show fade" role="alert">
-                        <button class="close" data-dismiss="alert">
-                          <span>×</span>
-                        </button>', '</div>');
-                    ?>
-                    <?= form_error('alamat', '<div class="alert alert-danger alert-dismissible show fade" role="alert">
-                        <button class="close" data-dismiss="alert">
-                          <span>×</span>
-                        </button>', '</div>');
-                    ?>
-                    <?= form_error('kelurahan', '<div class="alert alert-danger alert-dismissible show fade" role="alert">
-                        <button class="close" data-dismiss="alert">
-                          <span>×</span>
-                        </button>', '</div>');
-                    ?>
-
-                    <?= form_error('tempat_lahir', '<div class="alert alert-danger alert-dismissible show fade" role="alert">
-                        <button class="close" data-dismiss="alert">
-                          <span>×</span>
-                        </button>', '</div>');
-                    ?>
-
-                    <?= form_error('tanggal_lahir', '<div class="alert alert-danger alert-dismissible show fade" role="alert">
-                        <button class="close" data-dismiss="alert">
-                          <span>×</span>
-                        </button>', '</div>');
-                    ?>
-
-                    <?= form_error('kecamatan', '<div class="alert alert-danger alert-dismissible show fade" role="alert">
-                        <button class="close" data-dismiss="alert">
-                          <span>×</span>
-                        </button>', '</div>');
-                    ?>
-
-                    <?= form_error('seri', '<div class="alert alert-danger alert-dismissible show fade" role="alert">
-                        <button class="close" data-dismiss="alert">
-                          <span>×</span>
-                        </button>', '</div>');
-                    ?>
-
                     <?php foreach ($masyarakat as $mas) : ?>
                         <form action="<?= base_url('masyarakat/editMasyarakat'); ?>" method="post">
                             <div class="row">

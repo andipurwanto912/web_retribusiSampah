@@ -23,4 +23,10 @@ class dataModel extends CI_Model
         $this->db->where($where);
         $this->db->delete($table);
     }
+
+    public function detail_data($id = NULL)
+    {
+        $query = $this->db->get_where('tb_masyarakat', array('id_masy' => $id))->row();
+        return $query;
+    }
 }

@@ -155,6 +155,25 @@ class Masyarakat extends CI_Controller
     redirect('masyarakat');
   }
 
+  public function showM($id)
+  {
+    $data['title'] = 'Detail Masyarakat';
+    $data['user'] = $this->db->get_where('tb_user', ['email' =>
+    $this->session->userdata('email')])->row_array();
+
+    // $data['seri'] = $this->dataModel->get_data('tb_seri')->result();
+    $detail = $this->dataModel->detail_data($id);
+    $data['detail'] = $detail;
+
+    $this->load->view('templates/header', $data);
+    $this->load->view('templates/sidebar', $data);
+    $this->load->view('templates/topbar', $data);
+    $this->load->view('masyarakat/showMasy', $data);
+    $this->load->view('templates/footer');
+  }
+
+
+
   public function deleteMasy($id)
   {
     $where = array('id_masy' => $id);
