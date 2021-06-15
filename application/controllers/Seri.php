@@ -85,31 +85,28 @@ class Seri extends CI_Controller
 
   public function editSeri()
   {
-    $this->form_validation->set_rules('jenis_retribusi', 'jenis retribusi', 'required|trim');
-    $this->form_validation->set_rules('tagihan', 'tagihan', 'required|trim');
-
     $id = $this->input->post('id');
 
-    if ($this->form_validation->run() == false) {
-      $this->edit($id);
-    } else {
-      $id              = $this->input->post('id');
-      $seri            = $this->input->post('seri');
-      $jenis_retribusi = $this->input->post('jenis_retribusi');
-      $tagihan         = $this->input->post('tagihan');
+    // if ($this->form_validation->run() == false) {
+    //   $this->edit($id);
+    // } else {
+    $id              = $this->input->post('id');
+    $seri            = $this->input->post('seri');
+    $jenis_retribusi = $this->input->post('jenis_retribusi');
+    $tagihan         = $this->input->post('tagihan');
 
-      $data = array(
-        'seri'              => $seri,
-        'jenis_retribusi'   => $jenis_retribusi,
-        'tagihan'           => $tagihan,
-      );
+    $data = array(
+      'seri'              => $seri,
+      'jenis_retribusi'   => $jenis_retribusi,
+      'tagihan'           => $tagihan,
+    );
 
-      $where = array(
-        'id' => $id
-      );
+    $where = array(
+      'id' => $id
+    );
 
-      $this->dataModel->update_data('tb_seri', $data, $where);
-      $this->session->set_flashdata('pesan', '<div class="alert alert-success alert-dismissible show fade">
+    $this->dataModel->update_data('tb_seri', $data, $where);
+    $this->session->set_flashdata('pesan', '<div class="alert alert-success alert-dismissible show fade">
                           <div class="alert-body">
                             <button class="close" data-dismiss="alert">
                               <span>×</span>
@@ -117,8 +114,7 @@ class Seri extends CI_Controller
                             seri berhasil diupdate!
                           </div>
                         </div>');
-      redirect('seri');
-    }
+    redirect('seri');
   }
 
   public function deleteSeri($id)

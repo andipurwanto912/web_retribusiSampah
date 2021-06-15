@@ -94,11 +94,11 @@ class Masyarakat extends CI_Controller
   public function editM($id)
   {
     $where = array('id_masy' => $id);
-    $data['masyarakat'] = $this->db->query("SELECT * FROM tb_masyarakat WHERE id_masy='$id'")->result();
-    $data['seri'] = $this->dataModel->get_data('tb_seri')->result();
-    $data['title'] = 'Edit Masyarakat';
+    $data['title'] = 'Update data Masyarakat';
     $data['user'] = $this->db->get_where('tb_user', ['email' =>
     $this->session->userdata('email')])->row_array();
+    $data['seri'] = $this->dataModel->get_data('tb_seri')->result();
+    $data['masyarakat'] = $this->db->query("SELECT * FROM tb_masyarakat WHERE id_masy='$id'")->result();
 
     $this->load->view('templates/sidebar', $data);
     $this->load->view('templates/topbar', $data);
@@ -111,62 +111,49 @@ class Masyarakat extends CI_Controller
   {
     // $this->form_validation->set_rules('jenis_retribusi', 'jenis retribusi', 'required|trim');
     // $this->form_validation->set_rules('tagihan', 'tagihan', 'required|trim');
+
     $id = $this->input->post('id_masy');
 
-    if ($this->form_validation->run() == false) {
-      $this->editM($id);
-    } else {
-      $id                 = $this->input->post('id_masy');
-      $nik                = $this->input->post('nik');
-      $nama_lengkap       = $this->input->post('nama_lengkap');
-      $tempat_lahir       = $this->input->post('tempat_lahir');
-      $tanggal_lahir      = $this->input->post('tanggal_lahir');
-      $alamat             = $this->input->post('alamat');
-      $rt                 = $this->input->post('rt');
-      $rw                 = $this->input->post('rw');
-      $kelurahan          = $this->input->post('kelurahan');
-      $kecamatan          = $this->input->post('kecamatan');
-      $seri               = $this->input->post('seri');
+    $id                 = $this->input->post('id_masy');
+    $nik                = $this->input->post('nik');
+    $nama_lengkap       = $this->input->post('nama_lengkap');
+    $tempat_lahir       = $this->input->post('tempat_lahir');
+    $tanggal_lahir      = $this->input->post('tanggal_lahir');
+    $alamat             = $this->input->post('alamat');
+    $rt                 = $this->input->post('rt');
+    $rw                 = $this->input->post('rw');
+    $kelurahan          = $this->input->post('kelurahan');
+    $kecamatan          = $this->input->post('kecamatan');
+    $seri               = $this->input->post('seri');
 
-      $data = array(
-        'nik'              => $nik,
-        'nama_lengkap'     => $nama_lengkap,
-        'tempat_lahir'     => $tempat_lahir,
-        'tanggal_lahir'    => $tanggal_lahir,
-        'alamat'           => $alamat,
-        'rt'               => $rt,
-        'rw'               => $rw,
-        'kelurahan'        => $kelurahan,
-        'kecamatan'        => $kecamatan,
-        'seri'             => $seri,
-      );
-      // $seri            = $this->input->post('seri');
-      // $jenis_retribusi = $this->input->post('jenis_retribusi');
-      // $tagihan         = $this->input->post('tagihan');
+    $data = array(
+      'nik'              => $nik,
+      'nama_lengkap'     => $nama_lengkap,
+      'tempat_lahir'     => $tempat_lahir,
+      'tanggal_lahir'    => $tanggal_lahir,
+      'alamat'           => $alamat,
+      'rt'               => $rt,
+      'rw'               => $rw,
+      'kelurahan'        => $kelurahan,
+      'kecamatan'        => $kecamatan,
+      'seri'             => $seri,
+    );
 
-      // $data = array(
-      //   'seri'              => $seri,
-      //   'jenis_retribusi'   => $jenis_retribusi,
-      //   'tagihan'           => $tagihan,
-      // );
+    $where = array(
+      'id_masy' => $id
+    );
 
-      $where = array(
-        'id_masy' => $id
-      );
-
-      $this->dataModel->update_data('tb_masyarakat', $data, $where);
-      $this->session->set_flashdata('pesan', '<div class="alert alert-success alert-dismissible show fade">
-                          <div class="alert-body">
-                            <button class="close" data-dismiss="alert">
-                              <span>×</span>
-                            </button>
-                            data berhasil diupdate!
-                          </div>
-                        </div>');
-      redirect('masyarakat');
-    }
+    $this->dataModel->update_data('tb_masyarakat', $data, $where);
+    $this->session->set_flashdata('pesan', '<div class="alert alert-success alert-dismissible show fade">
+                        <div class="alert-body">
+                          <button class="close" data-dismiss="alert">
+                            <span>×</span>
+                          </button>
+                          Data berhasil diupdate!
+                        </div>
+                      </div>');
+    redirect('masyarakat');
   }
-
 
   public function deleteMasy($id)
   {

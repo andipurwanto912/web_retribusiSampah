@@ -48,6 +48,7 @@
                           <span>×</span>
                         </button>', '</div>');
                     ?>
+
                     <?php foreach ($masyarakat as $mas) : ?>
                         <form action="<?= base_url('masyarakat/editMasyarakat'); ?>" method="post">
                             <div class="row">
