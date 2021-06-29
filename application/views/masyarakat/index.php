@@ -55,12 +55,9 @@
                                                 <td><?= $m->nik ?></td>
                                                 <td><?= $m->nama_lengkap ?></td>
                                                 <td><?= $m->alamat ?></td>
-                                                <!-- <td><?= $m->tempat_lahir ?></td>
-                                                <td><?= $m->tanggal_lahir ?></td> -->
+
                                                 <td><?= $m->kelurahan ?></td>
-                                                <!-- <td><?= $m->rt ?></td>
-                                                <td><?= $m->rw ?></td> -->
-                                                <!-- <td><?= $m->kecamatan ?></td> -->
+
                                                 <td><?= $m->seri ?></td>
                                                 <td>
                                                     <a href="<?= base_url('masyarakat/editM/' . $m->id_masy) ?>">
