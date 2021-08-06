@@ -18,25 +18,24 @@
                             <div class="card-body">
                                 <div class="form-group">
                                     <label for="currentPassword">Current Password</label>
-                                    <input type="password" class="form-control" id="currentPassword" name="currentPassword">
+                                    <input pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" type="password" class="form-control" id="currentPassword" name="currentPassword">
                                     <?= form_error('currentPassword', '<small class="text-danger">', '</small>'); ?>
                                 </div>
 
                                 <div class="form-group">
                                     <label for="newPassword1">New Password</label>
-                                    <input type="password" class="form-control" id="newPassword1" name="newPassword1">
+                                    <input pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" type="password" class="form-control" id="newPassword1" name="newPassword1">
                                     <?= form_error('newPassword1', '<small class="text-danger">', '</small>'); ?>
                                     <small id="passwordHelpBlock" class="form-text text-muted">
-                                            Your password must be 8 characters long
-                                        </small>
+                                            min 8 karakter, Huruf Besar, Kecil dan Angka
+                                    </small>
                                 </div>
 
                                 <div class="form-group">
                                     <label for="newPassword2">Repeat Password</label>
-                                    <input type="password" class="form-control" id="newPassword2" name="newPassword2">
+                                    <input pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" type="password" class="form-control" id="newPassword2" name="newPassword2">
                                     <?= form_error('newPassword2', '<small class="text-danger">', '</small>'); ?>
                                     <small id="passwordHelpBlock" class="form-text text-muted">
-                                            Your password must be 8 characters long
                                         </small>
                                 </div>
 

@@ -6,34 +6,7 @@
 		</div>
 		<div class="section-body">
 			<h2 class="section-title">Tabel Masyarakat</h2>
-			<!-- <div class="card">
-				<div class="card-header bg-primary text-white">
-					Filter Data Pembayaran
-				</div>
-				<div class="card-body">
-					<form class="form-inline">
-						<div class="form-group mx-sm-3 mb-2">
-							<label>Kelurahan: </label>
-							<select class="form-control selectric" name="kelurahan" id="kelurahan">
-								<option selected>Pilih Kelurahan</option>
-								<option>Kejambon</option>
-								<option>Mangkukusuman</option>
-								<option>Mintaragen</option>
-								<option>Panggung</option>
-								<option>Slerok</option>
-							</select>
-						</div>
-						<button type="submit" class="btn btn-info mb-2 ml-auto"><i class="fas fa-eye"></i> Show
-							Data</button>
-						<?php if (count($masyarakat)>0){ ?>
-						<a href="#"
-							class="btn btn-success mb-2 ml-3"><i class="fas fa-print"></i> Cetak Data Pembayaran</a>
-						<?php }else{ ?>
-						
-						<?php } ?>
-					</form>
-				</div>
-			</div> -->
+			
 			<div class="row">
 				<div class="col">
 					<!-- form validation error -->

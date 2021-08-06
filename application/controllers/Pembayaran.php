@@ -132,4 +132,21 @@ class Pembayaran extends CI_Controller
     $this->load->view('pembayaran/showTransaksi', $data);
     $this->load->view('templates/footer');
     }
+
+    public function filterLaporan(){
+        $data['title'] = 'Cetak Data Pembayaran';
+        $data['user'] = $this->db->get_where('tb_user', ['email' =>
+        $this->session->userdata('email')])->row_array();
+        $data['seri'] = $this->DataModel->get_data('tb_seri')->result();
+        $data['masyarakat'] = $this->DataModel->get_data('tb_masyarakat')->result();
+        // $data['sumtotal'] = $this->DataModel->hitung();
+        // $data['cetakFilter'] = $this->DataModel->get_data('tb_masyarakat')->result();
+    
+        // $data['cetakFilter'] = $this->db->query("SELECT tb_masyarakat.*, WHERE tb_masyarakat.kelurahan")->result();
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('pembayaran/filterLaporan', $data);
+        $this->load->view('templates/footer');   
+    }
 }
