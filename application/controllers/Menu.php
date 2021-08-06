@@ -60,7 +60,7 @@ class Menu extends CI_Controller
     $data['title'] = 'Submenu Management';
     $data['user'] = $this->db->get_where('tb_user', ['email' =>
     $this->session->userdata('email')])->row_array();
-    $this->load->model('menuModel', 'menu');
+    $this->load->model('MenuModel', 'menu');
 
     $data['subMenu'] = $this->menu->getSubMenu();
     $data['menu'] = $this->db->get('user_menu')->result_array();

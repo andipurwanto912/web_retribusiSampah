@@ -42,6 +42,7 @@
                                             <th>Seri</th>
                                             <th>Jenis Retribusi</th>
                                             <th>Jumlah Tagihan</th>
+                                            <!--<th>QR CODE</th>-->
                                             <th>Action</th>
                                         </tr>
                                     </thead>
@@ -53,6 +54,8 @@
                                                 <td><?= $s->seri ?></td>
                                                 <td><?= $s->jenis_retribusi ?></td>
                                                 <td>Rp. <?= number_format($s->tagihan, 0, ',', '.') ?></td>
+                                            
+                                        <!--<td><img style="width: 100px;" src="<?= base_url('assets/img/'.$s->barcode)?>"></td>-->
                                                 <td>
                                                     <a href="<?= base_url('seri/edit/' . $s->id) ?>">
                                                         <button class="btn btn-success btn-sm"> <i class="fa fa-edit"></i> </button>
@@ -91,7 +94,7 @@
                     </div>
                     <div class="form-group">
                         <label>jenis Retribusi</label>
-                        <textarea class="form-control summernote-simple" id="jenis_retribusi" name="jenis_retribusi"></textarea>
+                        <textarea class="form-control" id="jenis_retribusi" name="jenis_retribusi"></textarea>
                     </div>
                     <div class="form-group">
                         <label>Tagihan</label>

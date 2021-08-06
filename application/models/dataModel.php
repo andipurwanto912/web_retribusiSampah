@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class dataModel extends CI_Model
+class DataModel extends CI_Model
 {
     public function get_data($table)
     {
@@ -24,9 +24,24 @@ class dataModel extends CI_Model
         $this->db->delete($table);
     }
 
+    //detail masyarakat
     public function detail_data($id = NULL)
     {
         $query = $this->db->get_where('tb_masyarakat', array('id_masy' => $id))->row();
         return $query;
     }
+    
+    //detail transaksi
+    public function detail_transaksi($id = NULL)
+    {
+        $query = $this->db->get_where('tb_transaksi', array('id_transaksi' => $id))->row();
+        return $query;
+    }
+    
+    public function jml_total(){
+        $sql = "SELECT sum(jml_bayar) as jml_bayar FROM tb_transaksi";
+        $result = $this->db->query($sql);
+        return $result->row()->jml_bayar;
+    }
+
 }

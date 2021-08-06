@@ -35,13 +35,32 @@
                             <select class="form-control selectric" name="tahun" id="tahun">
                                 <option selected>Pilih Tahun</option>
                                 <?php $tahun = date('Y');
-                                for ($i = 2020; $i < $tahun + 10; $i++) { ?>
+                                for ($i = 2021; $i < $tahun + 10; $i++) { ?>
                                     <option selected value="<?php echo $i ?>"><?php echo $i ?></option>
                                 <?php } ?>
                             </select>
                         </div>
+                        
+                        <?php 
+                         if ((isset($_GET['bulan']) && $_GET['bulan'] != '') && (isset($_GET['tahun']) && $_GET['tahun'] != '')) {
+                                $bulan = $_GET['bulan'];
+                                $tahun = $_GET['tahun'];
+                                $bulantahun = $bulan . $tahun;
+                            } else {
+                                $bulan = date('m');
+                                $tahun = date('Y');
+                                $bulantahun = $bulan . $tahun;
+                            }
+                        ?>
+                        
                         <button type="submit" class="btn btn-info mb-2 ml-auto"><i class="fas fa-eye"></i> Show Data</button>
-                        <a href="" class="btn btn-success mb-2 ml-3"><i class="fas fa-plus"></i> Input Pembayaran</a>
+                        
+                        <?php if (count($pembayaran)>0){ ?>
+                        <a href ="<?=('pembayaran/cetakPembayaran?bulan='.$bulan),'&tahun='.$tahun?>" class="btn btn-success mb-2 ml-3"><i class="fas fa-print"></i> Cetak Data Pembayaran</a>
+                        <?php }else{ ?>
+                        <button type="button" class="btn btn-success mb-2 ml-3" data-toggle="modal" data-target="#exampleModal">
+                          <i class="fas fa-print"></i> Cetak Data Pembayaran</button>
+                        <?php } ?>
                     </form>
                 </div>
             </div>
@@ -90,17 +109,13 @@
                                             <td><?= $p->seri ?></td>
                                             <td>Rp. <?= number_format($p->jml_bayar, 0, ',', '.') ?></td>
                                             <td>
-                                                <a href="#">
-                                                    <button class="btn btn-success btn-sm"> <i class="fa fa-edit"></i> </button>
-                                                </a>
-
-                                                <a href="#">
-                                                    <button class="btn btn-info btn-sm"> <i class="fa fa-eye"></i> </button>
-                                                </a>
-
-                                                <a href="#" onclick="javascript: return confirm('Apakah Anda yakin ingin menghapus data ini?')">
+                                                <a href="<?= base_url('pembayaran/deletePemb/' . $p->id_transaksi); ?>" onclick="javascript: return confirm('Apakah Anda yakin ingin menghapus data ini?')">
                                                     <button class="btn btn-danger btn-sm"> <i class="fa fa-trash"></i></button>
                                                 </a>
+                                                
+                                                <a href="<?= base_url('pembayaran/showTransaksi/' . $p->id_transaksi) ?>">
+                                                        <button class="btn btn-info btn-sm"> <i class="fa fa-eye"></i> </button>
+                                                        </a>
                                             </td>
                                         </tr>
                                     <?php endforeach; ?>
@@ -115,4 +130,24 @@
                     </div>
                 </div>
     </section>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header bg-danger text-white">
+        <h5 class="modal-title" id="exampleModalLabel">Informasi</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Data pembayaran masih kosong, coba cek kembali bulan dan tahun yang anda pilih!
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
 </div>

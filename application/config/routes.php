@@ -55,9 +55,24 @@ $route['translate_uri_dashes'] = FALSE;
 
 $route['API'] = 'Rest_server';
 
-// user API Routes
-$route['api/users/register'] = 'api/users/register';
+//user Login API Routes
+$route['api/users/user'] = 'api/users/user';
 $route['api/users/login'] = 'api/users/login';
+$route['api/users/user/(:num)(\.)([a-zA-Z0-9_-]+)(.*)'] = 'api/users/user/id_user/$1/format/$3$4';
 
-// $route['api/users/add']      = 'api/users/add_users';
-// $route['api/users/all']      = 'api/users/fetch_all_users';
+//Masyarakat API Routes
+$route['api/masyarakat/masyarakat'] = 'api/masyarakat/masyarakat';
+$route['api/masyarakat/nik'] = 'api/masyarakat/nik';
+
+
+//Seri API Routes
+$route['api/seri/seri'] = 'api/seri/seri';
+
+//Transaksi API Routes (Get)
+$route['api/transaksi/transaksi'] = 'api/transaksi/transaksi';
+
+//Transaksi API Routes (POST)
+$route['api/transaksi/transaksi'] = 'api/transaksi/transaksi';
+
+
+

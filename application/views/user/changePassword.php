@@ -26,13 +26,18 @@
                                     <label for="newPassword1">New Password</label>
                                     <input type="password" class="form-control" id="newPassword1" name="newPassword1">
                                     <?= form_error('newPassword1', '<small class="text-danger">', '</small>'); ?>
+                                    <small id="passwordHelpBlock" class="form-text text-muted">
+                                            Your password must be 8 characters long
+                                        </small>
                                 </div>
 
                                 <div class="form-group">
                                     <label for="newPassword2">Repeat Password</label>
                                     <input type="password" class="form-control" id="newPassword2" name="newPassword2">
                                     <?= form_error('newPassword2', '<small class="text-danger">', '</small>'); ?>
-
+                                    <small id="passwordHelpBlock" class="form-text text-muted">
+                                            Your password must be 8 characters long
+                                        </small>
                                 </div>
 
                             </div>

@@ -1,32 +1,13 @@
 <?php
 
-class userapiModel extends CI_Model
+class UserapiModel extends CI_Model
 {
-    protected $user_table = 'tb_user';
-
-    /**
-     * user register
-     * @param: array user data
-     */
-    public function insert_user(array $data)
+    public function getUser($id = null)
     {
-        $this->db->insert($this->user_table, $data);
-        return $this->db->insert_id();
-    }
-
-    public function user_login($email, $password)
-    {
-        $this->db->where('email', $email);
-        $q = $this->db->get($this->user_table);
-
-        if ($q->num_rows()) {
-            $user_pass = $q->row('password');
-            if (password_verify($password, $user_pass)) {
-                return $q->row();
-            }
-            return FALSE;
-        } else {
-            return FALSE;
+        if($id == null){
+            return $this->db->get('tb_user')->result_array();
+        }else{
+            return $this->db->get_where('tb_user',['id_user'=> $id])->result_array();
         }
     }
 }

@@ -22,7 +22,7 @@ class Seri extends CI_Controller
   public function __construct()
   {
     parent::__construct();
-    $this->load->model('dataModel');
+    $this->load->model('DataModel');
   }
 
   public function index()
@@ -30,8 +30,9 @@ class Seri extends CI_Controller
     $data['title'] = 'Seri Retribusi';
     $data['user'] = $this->db->get_where('tb_user', ['email' =>
     $this->session->userdata('email')])->row_array();
-
-    $data['seri'] = $this->dataModel->get_data('tb_seri')->result();
+    
+    $this->load->library('ciqrcode'); //pemanggilan library QR CODE
+    $data['seri'] = $this->DataModel->get_data('tb_seri')->result();
 
     $this->form_validation->set_rules('seri', 'seri', 'required|trim|is_unique[tb_seri.seri]', [
       'is_unique' => 'seri sudah terdaftar!'
@@ -53,9 +54,10 @@ class Seri extends CI_Controller
       $data = array(
         'seri'              => $seri,
         'jenis_retribusi'   => $jenis_retribusi,
-        'tagihan'           => $tagihan
-      );
-      $this->dataModel->insert_data($data, 'tb_seri');
+        'tagihan'           => $tagihan,
+        );
+        
+      $this->DataModel->insert_data($data, 'tb_seri');
       $this->session->set_flashdata('pesan', '<div class="alert alert-success alert-dismissible show fade">
                       <div class="alert-body">
                         <button class="close" data-dismiss="alert">
@@ -105,7 +107,7 @@ class Seri extends CI_Controller
       'id' => $id
     );
 
-    $this->dataModel->update_data('tb_seri', $data, $where);
+    $this->DataModel->update_data('tb_seri', $data, $where);
     $this->session->set_flashdata('pesan', '<div class="alert alert-success alert-dismissible show fade">
                           <div class="alert-body">
                             <button class="close" data-dismiss="alert">
@@ -121,7 +123,7 @@ class Seri extends CI_Controller
   {
     $where = array('id' => $id);
 
-    $this->dataModel->delete_data($where, 'tb_seri');
+    $this->DataModel->delete_data($where, 'tb_seri');
     $this->session->set_flashdata('pesan', '<div class="alert alert-danger alert-dismissible show fade">
                           <div class="alert-body">
                             <button class="close" data-dismiss="alert">

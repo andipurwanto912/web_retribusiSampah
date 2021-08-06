@@ -28,8 +28,9 @@ class User extends CI_Controller
         $data['user'] = $this->db->get_where('tb_user', ['email' =>
         $this->session->userdata('email')])->row_array();
 
-        $this->form_validation->set_rules('name', 'nama lengkap', 'required|trim');
-
+        // $this->form_validation->set_rules('name', 'nama lengkap', 'required|trim');
+        $this->form_validation->set_rules('no_hp', 'No HP sudah terdaftar', 'required|trim|min_length[12]|max_length[13]');
+       
         if ($this->form_validation->run() == false) {
             $this->load->view('templates/sidebar', $data);
             $this->load->view('templates/topbar', $data);
@@ -39,9 +40,11 @@ class User extends CI_Controller
         } else {
             $name = $this->input->post('name');
             $email = $this->input->post('email');
-
+            $no_hp = $this->input->post('no_hp');
+            
             // jika ada gambar yg di ganti
             $upload_image = $_FILES['image']['name'];
+            // $upload_image = $_FILES['error']['error'];
 
             if ($upload_image) {
                 $config['allowed_types'] = 'gif|jpg|jpeg|png';
@@ -59,12 +62,12 @@ class User extends CI_Controller
                     $new_image = $this->upload->data('file_name');
                     $this->db->set('photo', $new_image);
                 } else {
-                    echo $this->upload->display_error();
+                  $this->session->set_flashdata('pesan', '<div class="alert alert-danger" role="alert">' . $this->upload->display_errors() . '</div>');
+                  redirect('user/editProfile');                  // redirect('user/editProfile');
                 }
             }
-
-
             $this->db->set('nama_lengkap', $name);
+            $this->db->set('no_hp', $no_hp);
             $this->db->where('email', $email);
             $this->db->update('tb_user');
 

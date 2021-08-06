@@ -21,7 +21,7 @@
                                             <div class="form-group">
                                                 <label>NIK</label>
                                                 <input type="hidden" class="form-control" id="id_masy" name="id_masy" value="<?= $mas->id_masy ?>">
-                                                <input type="number" readonly class="form-control" id="nik" name="nik" value="<?= $mas->nik ?>">
+                                                <input onkeypress="return hanyaAngka(event)" type="type" readonly class="form-control" id="nik" name="nik" value="<?= $mas->nik ?>">
                                             </div>
 
                                             <div class="form-group">
@@ -56,14 +56,27 @@
                                                 </div>
                                             </div>
 
-                                            <div class="form-group">
-                                                <label>Kelurahan</label>
-                                                <input type="text" class="form-control" id="kelurahan" name="kelurahan" value="<?= $mas->kelurahan ?>">
+                                        <div class="form-group">
+                                        <label>Kelurahan</label>
+                                         <select class="form-control selectric" name="kelurahan" id="kelurahan" required>
+                                    <option selected><?= $mas->kelurahan?></option>
+                                        <option>Kejambon</option>
+                                        <option>Mangkukusuman</option>
+                                        <option>Mintaragen</option>
+                                        <option>Panggung</option>
+                                        <option>Slerok</option>
+                                    </select>
                                             </div>
 
                                             <div class="form-group">
                                                 <label>Kecamatan</label>
-                                                <input type="text" class="form-control" id="kecamatan" name="kecamatan" value="<?= $mas->kecamatan ?>">
+                                                <select class="form-control selectric" name="kecamatan" id="kecamatan" required>
+                                    <option selected><?= $mas->kecamatan?></option>
+                                        <!--<option>Margadana</option>-->
+                                        <option>Tegal Timur</option>
+                                        <!--<option>Tegal Barat</option>-->
+                                        <!--<option>Tegal Selatan</option>-->
+                                    </select>
                                             </div>
 
                                             <div class="form-group">

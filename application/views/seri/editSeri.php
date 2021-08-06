@@ -41,7 +41,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <label>jenis Retribusi</label>
-                                                <textarea class="form-control summernote-simple" id="jenis_retribusi" name="jenis_retribusi" value="<?= htmlspecialchars($s->jenis_retribusi) ?>"></textarea>
+                                                <textarea class="form-control" id="jenis_retribusi" name="jenis_retribusi" required><?php echo htmlspecialchars($s->jenis_retribusi); ?></textarea>
                                             </div>
                                             <div class="form-group">
                                                 <label>Tagihan</label>

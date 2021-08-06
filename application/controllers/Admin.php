@@ -7,10 +7,19 @@ class Admin extends CI_Controller
     {
         parent::__construct();
         is_logged_in();
+        $this->load->model('DataModel');
     }
 
     public function index()
     {
+        $user = $this->db->query('SELECT * FROM tb_user');
+        $seri = $this->db->query('SELECT * FROM tb_seri');
+        $masyarakat = $this->db->query('SELECT * FROM tb_masyarakat');
+        
+        $data['userdata'] = $user->num_rows();
+        $data['masyarakat'] = $masyarakat->num_rows();
+        $data['seri'] = $seri->num_rows();
+        $data['sum'] = $this->DataModel->jml_total();
         $data['title'] = 'Dashboard';
         $data['user'] = $this->db->get_where('tb_user', ['email' =>
         $this->session->userdata('email')])->row_array();
@@ -84,6 +93,6 @@ class Admin extends CI_Controller
                         </button>
                         Access Changed!
                       </div>
-                    </div>');
+        </div>');
     }
 }

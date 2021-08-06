@@ -1,10 +1,10 @@
 <div class="main-sidebar">
     <aside id="sidebar-wrapper">
         <div class="sidebar-brand">
-            <a href="index.html">RETRIBUSI SAMPAH</a>
+            <a href="<?= base_url('admin') ?>">RETRIBUSI SAMPAH</a>
         </div>
         <div class="sidebar-brand sidebar-brand-sm">
-            <a href="index.html">RS</a>
+            <a href="<?=base_url('admin')?>">RS</a>
         </div>
         <ul class="sidebar-menu">
             <!-- query menu -->

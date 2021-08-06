@@ -9,6 +9,7 @@ class Auth extends CI_Controller
   public function __construct()
   {
     parent::__construct();
+    $this->load->model('DataModel');
     $this->load->library('form_validation');
   }
 
@@ -52,7 +53,7 @@ class Auth extends CI_Controller
           $this->session->set_userdata($data);
           if ($user['role_id'] == 1) {
             redirect('admin');
-          } else {
+          }else{
             redirect('user');
           }
         } else {
@@ -91,84 +92,85 @@ class Auth extends CI_Controller
     }
   }
 
-  public function registration()
-  {
-    if ($this->session->userdata('email')) {
-      redirect('user');
-    }
-
+public function registration()
+ {
+    $data['title'] = "Data User";
+    $data['user'] = $this->db->get_where('tb_user', ['email' => $this->session->userdata('email')])->row_array();
+    $data['users'] = $this->DataModel->get_data('tb_user')->result();
+    $data['role'] = $this->db->get('user_role')->result_array();          
+    // $data['role'] = $this->db->get_where('user_role',['id' => $role_id])->row_array();
     $this->form_validation->set_rules('name', 'Nama Lengkap', 'required|trim');
-    $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email|is_unique[tb_user.email]', [
-      'is_unique' => 'email sudah terdaftar!'
-    ]);
-    $this->form_validation->set_rules('password', 'Password', 'required|trim|min_length[8]|max_length[20]|matches[password2]', [
-      'matches' => 'password tidak sama!',
-      'min_length' => 'password min 8 karakter!'
-    ]);
+    $this->form_validation->set_rules('no_hp', 'No HP sudah terdaftar', 'required|trim|min_length[12]|max_length[13]|is_unique[tb_user.no_hp]');
+    $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email|is_unique[tb_user.email]', ['is_unique' => 'email sudah terdaftar!']);    
+    $this->form_validation->set_rules('password', 'Password', 'required|trim|min_length[8]|max_length[20]|matches[password2]', ['matches' => 'password tidak sama!', 'min_length' => 'password min 8 karakter!']);
     $this->form_validation->set_rules('password2', 'Password', 'required|trim|matches[password]');
+    $this->form_validation->set_rules('role_id', 'pilih Role', 'required|trim');
 
     if ($this->form_validation->run() == false) {
-      $data['title'] = "RS | Registration";
-      $this->load->view('templates/auth_header', $data);
-      $this->load->view('auth/registration');
-      $this->load->view('templates/auth_footer');
+       $this->load->view('templates/header', $data);
+       $this->load->view('templates/sidebar', $data);
+       $this->load->view('templates/topbar', $data);
+       $this->load->view('auth/registration', $data);
+       $this->load->view('templates/footer');
+      //  $data['role'] = $this->db->get_where('user_role', ['id' => $role_id])->row_array();
+      //  $this->db->where('id !=', 1);
     } else {
-      $email = $this->input->post('email', true);
-      $data  = [
-        'nama_lengkap' => htmlspecialchars($this->input->post('name', true)),
-        'email' => htmlspecialchars($email),
-        'photo' => 'avatar-1.png',
-        'password' => password_hash($this->input->post('password'), PASSWORD_DEFAULT),
-        'role_id' => 2,
-        'is_active' => 0,
-        'date_created' => time()
-      ];
+       $email = $this->input->post('email', true);
+       $no_hp = $this->input->post('no_hp');
+       $role_id = $this->input->post('role_id', true);
+       $data  = [
+         'nama_lengkap' => htmlspecialchars($this->input->post('name', true)),
+         'email' => htmlspecialchars($email),
+         'no_hp' => htmlspecialchars($no_hp),
+         'photo' => 'avatar-3.png',
+         'password' => password_hash($this->input->post('password'), PASSWORD_DEFAULT),
+         'role_id' => htmlspecialchars($role_id),
+         'api_token' =>'RS@KEY',
+         'is_active' => 0,
+         'date_created' => time()
+       ];
+    $token = base64_encode(random_bytes(32));
+    $user_token = [
+      'email' => $email,
+      'token' => $token,
+      'date_created' => time()
+    ];
 
-      //tokken
-      $token = base64_encode(random_bytes(32));
-      $user_token = [
-        'email' => $email,
-        'token' => $token,
-        'date_created' =>  time()
-      ];
+    $this->db->insert('tb_user', $data);
+    $this->db->insert('user_token', $user_token);
+    $this->_sendEmail($token, 'verify');
 
-      $this->db->insert('tb_user', $data);
-      $this->db->insert('user_token', $user_token);
-
-      $this->_sendEmail($token, 'verify');
-
-      $this->session->set_flashdata('pesan', '<div class="alert alert-success alert-dismissible show fade">
-                      <div class="alert-body">
-                        <button class="close" data-dismiss="alert">
-                          <span>×</span>
-                        </button>
-                        berhasil daftar, silakan aktivasi email anda!
-                      </div>
-                    </div>');
-      redirect('auth');
-    }
+    $this->session->set_flashdata('pesan', '<div class="alert alert-success alert-dismissible show fade">
+                     <div class="alert-body">
+                         <button class="close" data-dismiss="alert">
+                           <span>×</span>
+                         </button>
+                         user berhasil ditambah, silakan aktivasi email user!
+                       </div>
+                     </div>');
+       redirect('auth/registration');
+     }
   }
 
   private function _sendEmail($token, $type)
-  {
-    $config = [
-      'protocol'  => 'smtp',
-      'smtp_host' => 'ssl://smtp.googlemail.com',
-      'smtp_user' => 'berbagiinformasiyt@gmail.com',
-      'smtp_pass' => 'andi12345',
-      'smtp_port' => 465,
-      'mailtype'  => 'html',
-      'charset'   =>  'utf-8',
-      'newline'   => "\r\n"
+    {
+     $config = [
+       'protocol'  => 'smtp',
+       'smtp_host' => 'ssl://smtp.googlemail.com',
+       'smtp_user' => 'tugasakhir109@gmail.com',
+       'smtp_pass' => 'Tugas12345',
+       'smtp_port' => 465,
+       'mailtype'  => 'html',
+       'charset'   =>  'utf-8',
+       'newline'   => "\r\n"
 
     ];
 
     // $this->load->library('email', $config);
     $this->email->initialize($config);
 
-    $this->email->from('berbagiinformasiyt@gmail.com', 'DLH Tegal');
+    $this->email->from('tugasakhir212@gmail.com', 'DLH Tegal');
     $this->email->to($this->input->post('email'));
-    // verify
     if ($type == 'verify') {
       $this->email->subject('Account Verification');
       $this->email->message('Click this link to verify your account : <a href="' . base_url() . 'auth/verify?email=' . $this->input->post('email') . '&token=' . urlencode($token) . '">Activate</a>');
@@ -184,7 +186,6 @@ class Auth extends CI_Controller
       die;
     }
   }
-
   public function verify()
   {
     $email = $this->input->get('email');
@@ -207,10 +208,10 @@ class Auth extends CI_Controller
                         <button class="close" data-dismiss="alert">
                           <span>×</span>
                         </button>
-                        ' . $email . ' sudah telah aktivasi, silakan login!
+                        ' . $email . ' sudah telah aktivasi!
                       </div>
                     </div>');
-          redirect('auth');
+          redirect('auth/registration');
         } else {
           $this->db->delete('tb_user', ['email' => $email]);
           $this->db->delete('user_token', ['email' => $email]);
@@ -223,7 +224,7 @@ class Auth extends CI_Controller
                         token expired!
                       </div>
                     </div>');
-          redirect('auth');
+          redirect('auth/registration');
         }
       } else {
         $this->session->set_flashdata('pesan', '<div class="alert alert-danger alert-dismissible show fade">
@@ -234,7 +235,7 @@ class Auth extends CI_Controller
                         akun aktivasi failed, token salah!
                       </div>
                     </div>');
-        redirect('auth');
+        redirect('auth/registration');
       }
     } else {
       $this->session->set_flashdata('pesan', '<div class="alert alert-danger alert-dismissible show fade">
@@ -245,7 +246,7 @@ class Auth extends CI_Controller
                         akun aktivasi failed, email salah!
                       </div>
                     </div>');
-      redirect('auth');
+      redirect('auth/registration');
     }
   }
 
@@ -388,4 +389,21 @@ class Auth extends CI_Controller
       redirect('auth');
     }
   }
+
+  public function deleteUsers($id)
+  {
+    $where = array('id_user' => $id);
+
+    $this->DataModel->delete_data($where, 'tb_user');
+    $this->session->set_flashdata('pesan', '<div class="alert alert-danger alert-dismissible show fade">
+                          <div class="alert-body">
+                            <button class="close" data-dismiss="alert">
+                              <span>×</span>
+                            </button>
+                            users berhasil dihapus!
+                          </div>
+                        </div>');
+    redirect('auth/registration');
+  }
+
 }
