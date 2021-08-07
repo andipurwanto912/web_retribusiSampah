@@ -259,7 +259,7 @@ class Masyarakat extends CI_Controller
   }
 
   public function filterLaporanMasy(){
-    $data['title'] = 'Cetak Data Masyarakat';
+    $data['title'] = 'Laporan Data Masyarakat';
     $data['user'] = $this->db->get_where('tb_user', ['email' =>
     $this->session->userdata('email')])->row_array();
     $data['seri'] = $this->DataModel->get_data('tb_seri')->result();
@@ -274,4 +274,29 @@ class Masyarakat extends CI_Controller
     $this->load->view('masyarakat/filterLaporanMasy', $data);
     $this->load->view('templates/footer');   
   }
+
+  public function printLaporanByKelurahan(){
+    $data['title'] = 'Laporan Data Masyarakat Per-Kelurahan';
+    $data['masyarakat'] = $this->DataModel->get_data('tb_masyarakat')->result();
+    $data['user'] = $this->db->get_where('tb_user', ['email' =>
+    $this->session->userdata('email')])->row_array();
+    $key = $this->input->post('kelurahan');
+    $data['cetakMasyarakat'] = $this->db->query("SELECT * FROM tb_masyarakat where kelurahan = '$key'")->result();
+    $this->load->library('pdf');
+    $html = $this->load->view('masyarakat/cetakByKelurahan', $data, true);
+    $this->pdf->createPdf($html, 'masyarakat-filter-kelurahan', false);
+  }
+
+  public function printLaporanBySeri(){
+    $data['title'] = 'Laporan Data Masyarakat Per-Seri';
+    $data['masyarakat'] = $this->DataModel->get_data('tb_masyarakat')->result();
+    $data['user'] = $this->db->get_where('tb_user', ['email' =>
+    $this->session->userdata('email')])->row_array();
+    $key = $this->input->post('seri');
+    $data['cetakMasyarakat'] = $this->db->query("SELECT * FROM tb_masyarakat where seri = '$key'")->result();
+    $this->load->library('pdf');
+    $html = $this->load->view('masyarakat/cetakBySeri', $data, true);
+    $this->pdf->createPdf($html, 'masyarakat-filter-seri', false);
+  }
+
 }

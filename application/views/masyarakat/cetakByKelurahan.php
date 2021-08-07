@@ -60,7 +60,7 @@
 	</table>
 	<hr class="line-title">
 	<p align="center" style="font-family: 'Times New Roman', Times, serif; font-size: large;">
-		Data Pembayaran Retribusi Sampah Berdasarkan Kelurahan<br>
+		Data Masyarakat Berdasarkan Kelurahan<br>
         <!-- <?= $cetakPembayaran['kelurahan'] ?><br> -->
 		Kecamatan Tegal Timur
     </p>
@@ -74,33 +74,24 @@
 				<th>RT/RW</th>
 				<th>Kelurahan</th>
 				<th>Seri</th>
-				<th>Jumlah Bayar</th>
 			</tr>
 		</thead>
 		<tbody>
 			<?php 
                 $no = 1;
-                $total = 0;
-                foreach ($cetakPembayaran as $p) : $total += $p->jml_bayar?>
+                foreach ($cetakMasyarakat as $m) :?>
 
 			<tr class="">
 				<td><?= $no++ ?></td>
-				<td><?= $p->nik ?></td>
-				<td><?= $p->nama_lengkap ?></td>
-				<td><?= $p->alamat ?></td>
-				<td><?= $p->rt ?>/<?= $p->rw ?></td>
-				<td><?= $p->kelurahan ?></td>
-				<td><?= $p->seri ?></td>
-				<td style="">Rp. <?= number_format($p->jml_bayar, 0, ',', '.') ?></td>
+				<td><?= $m->nik ?></td>
+				<td><?= $m->nama_lengkap ?></td>
+				<td><?= $m->alamat ?></td>
+				<td><?= $m->rt ?>/<?= $m->rw ?></td>
+				<td><?= $m->kelurahan ?></td>
+				<td><?= $m->seri ?></td>
 			</tr>
 			<?php endforeach; ?>
 		</tbody>
-		<tfoot>
-			<tr>
-				<td colspan="7" style="text-align: center; font-weight : bold">TOTAL</td>
-				<td class="">Rp. <?= number_format($total, 0, '', '.') ?></td>
-			</tr>
-		</tfoot>
 	</table>
 
 	<!-- <div style="float: right">
