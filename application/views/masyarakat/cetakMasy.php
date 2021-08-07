@@ -14,6 +14,34 @@
 			border-top: 1px solid #000;
 		}
 
+		.table {
+			font-family: Arial, Helvetica, sans-serif;
+			border-collapse: collapse;
+			width: 100%;
+		}
+
+		.table td,
+		.table th {
+			border: 1px solid #ddd;
+			padding: 8px;
+		}
+
+		.table tr:nth-child(even) {
+			background-color: #f2f2f2;
+		}
+
+		.table tr:hover {
+			background-color: #ddd;
+		}
+
+		.table th {
+			padding-top: 12px;
+			padding-bottom: 12px;
+			text-align: left;
+			background-color: #04AA6D;
+			color: white;
+		}
+
 	</style>
 </head>
 
@@ -66,21 +94,8 @@
         <?php endforeach; ?>
         </tbody>
     </table>
-
-    <table width="100%" style="font-family: 'Times New Roman', Times, serif;">
-        <td></td>
-        <td width="100px">
-            <p>Tegal, <?= date('d M Y')?> <br><?= $user['nama_lengkap'] ?></p>
-            <br>
-            <br>
-            <p>______________________</p>
-        </td>
-        
-    </table>
 </body>
-
 </html>
-
 <script type="text/javascript">
 	window.print();
 </script>

@@ -22,7 +22,7 @@
 								<option value="Slerok">Slerok</option>
 							</select>
 						</div>
-						<button type="submit" class="btn btn-success mb-2 ml-auto"><i class="fas fa-print"></i> Cetak Data</button>
+						<button type="submit" target="_BLANK" class="btn btn-success mb-2 ml-auto"><i class="fas fa-print"></i> Cetak Data</button>
 					</form>
 				</div>
 			</div>
@@ -31,17 +31,17 @@
 				Filter Laporan Data Pembayaran
 				</div>
 				<div class="card-body">
-					<form class="form-inline">
+				<form class="form-inline" method="POST" action="<?= base_url('pembayaran/printLaporanBySeri') ?>">
 						<div class="form-group mx-sm-3 mb-2">
 							<label>Seri: </label>
-							<select class="form-control selectric" name="bulan" id="bulan">
+							<select class="form-control selectric" name="seri" id="seri">
 								<option selected value="">Pilih Seri</option>
 								<?php foreach ($seri as $s) : ?>
 								<option value="<?= $s->seri ?>"><?= $s->seri ?></option>
 								<?php endforeach; ?>
 							</select>
 						</div>
-						<a href ="#" class="btn btn-success mb-2 ml-auto"><i class="fas fa-print"></i> Cetak Data</a>
+						<button type="submit" target="_BLANK" class="btn btn-success mb-2 ml-auto"><i class="fas fa-print"></i> Cetak Data</button>
 					</form>
 				</div>
 			</div>

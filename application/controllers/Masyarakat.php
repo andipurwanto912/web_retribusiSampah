@@ -253,11 +253,12 @@ class Masyarakat extends CI_Controller
     $data['cetakMasyarakat'] = $this->DataModel->get_data('tb_masyarakat')->result();
     // $data['pembayaran'] = $this->DataModel->get_data('tb_transaksi')->result();
 
-    $this->load->view('templates/header', $data);
-    $this->load->view('masyarakat/cetakMasy', $data);
+    $this->load->library('pdf');
+    $html = $this->load->view('masyarakat/cetakMasy', $data, true);
+    $this->pdf->createPdf($html, 'cetak-data-masyarakat', false);
   }
 
-  public function filterLaporan(){
+  public function filterLaporanMasy(){
     $data['title'] = 'Cetak Data Masyarakat';
     $data['user'] = $this->db->get_where('tb_user', ['email' =>
     $this->session->userdata('email')])->row_array();
@@ -270,7 +271,7 @@ class Masyarakat extends CI_Controller
     $this->load->view('templates/header', $data);
     $this->load->view('templates/sidebar', $data);
     $this->load->view('templates/topbar', $data);
-    $this->load->view('masyarakat/filterLaporan', $data);
+    $this->load->view('masyarakat/filterLaporanMasy', $data);
     $this->load->view('templates/footer');   
   }
 }

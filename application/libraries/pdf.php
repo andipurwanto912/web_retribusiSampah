@@ -7,9 +7,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Pdf
 {
     function createPdf($html, $filename = '', $download="TRUE", $paper='A4', $orientation = 'landscape'){
-        
         $dompdf = new Dompdf();
-        $dompdf->set_option('isRemoteEnabled', TRUE);
         $dompdf->loadHtml($html);
         $dompdf->set_paper($paper, $orientation);
         $dompdf->render();

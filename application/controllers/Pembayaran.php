@@ -130,8 +130,8 @@ class Pembayaran extends CI_Controller
     $this->load->view('templates/footer');
     }
 
-    public function filterLaporan(){
-        $data['title'] = 'Cetak Data Pembayaran';
+    public function filterLaporanPemb(){
+        $data['title'] = 'Laporan Data Pembayaran';
         $data['user'] = $this->db->get_where('tb_user', ['email' =>
         $this->session->userdata('email')])->row_array();
         $data['seri'] = $this->DataModel->get_data('tb_seri')->result();
@@ -143,10 +143,11 @@ class Pembayaran extends CI_Controller
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
         $this->load->view('templates/topbar', $data);
-        $this->load->view('pembayaran/filterLaporan', $data);
+        $this->load->view('pembayaran/filterLaporanPemb', $data);
         $this->load->view('templates/footer');   
     }
 
+    //filter Kelurahan
     public function printLaporanByKelurahan(){
         $data['title'] = 'Laporan Data Pembayaran Per-Kelurahan';
         $data['masyarakat'] = $this->DataModel->get_data('tb_masyarakat')->result();
@@ -164,5 +165,25 @@ class Pembayaran extends CI_Controller
         $this->load->library('pdf');
         $html = $this->load->view('pembayaran/cetakByKelurahan', $data, true);
         $this->pdf->createPdf($html, 'pembayaran-filter-kelurahan', false);
+    }
+
+    //filter Seri
+    public function printLaporanBySeri(){
+        $data['title'] = 'Laporan Data Pembayaran Per-Seri';
+        $data['masyarakat'] = $this->DataModel->get_data('tb_masyarakat')->result();
+        $data['user'] = $this->db->get_where('tb_user', ['email' =>
+        $this->session->userdata('email')])->row_array();
+        $key = $this->input->post('seri');
+        $data['cetakPembayaran'] = $this->db->query("SELECT tb_transaksi.*, 
+            tb_masyarakat.nama_lengkap, tb_masyarakat.alamat, tb_masyarakat.rt, tb_masyarakat.rw,
+            tb_masyarakat.kelurahan, tb_masyarakat.kecamatan
+            FROM tb_transaksi 
+            INNER JOIN tb_masyarakat ON tb_transaksi.nik=tb_masyarakat.nik
+            INNER JOIN tb_seri ON tb_masyarakat.seri=tb_seri.seri 
+            where tb_transaksi.seri = '$key'
+            ORDER BY tb_masyarakat.nama_lengkap ASC")->result();
+        $this->load->library('pdf');
+        $html = $this->load->view('pembayaran/cetakBySeri', $data, true);
+        $this->pdf->createPdf($html, 'pembayaran-filter-seri', false);
     }
 }

@@ -60,7 +60,7 @@
 	</table>
 	<hr class="line-title">
 	<p align="center" style="font-family: 'Times New Roman', Times, serif; font-size: large;">
-		Data Pembayaran Retribusi Sampah Per-Kelurahan<br>
+		Data Pembayaran Retribusi Sampah Per-Seri<br>
         <!-- <?= $cetakPembayaran['kelurahan'] ?><br> -->
 		Kecamatan Tegal Timur
     </p>
