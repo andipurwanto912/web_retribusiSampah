@@ -1,6 +1,5 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
-
 class Pembayaran extends CI_Controller
 {
 
@@ -66,13 +65,10 @@ class Pembayaran extends CI_Controller
     
     public function cetakPembayaran()
     {
-        $data['title'] = 'Laporan Data Pembayaran';
-        $data['user'] = $this->db->get_where('tb_user', ['email' =>
-        $this->session->userdata('email')])->row_array();
+        $data['title'] = 'Laporan Data Pembayaran Per-Bulan';
+        $data['user'] = $this->db->get_where('tb_user', ['email' => $this->session->userdata('email')])->row_array();
         $data['seri'] = $this->DataModel->get_data('tb_seri')->result();
-        // $data['sumtotal'] = $this->DataModel->hitung();
         $data['masyarakat'] = $this->DataModel->get_data('tb_masyarakat')->result();
-        // $data['pembayaran'] = $this->DataModel->get_data('tb_transaksi')->result();
 
         if ((isset($_GET['bulan']) && $_GET['bulan'] != '') && (isset($_GET['tahun']) && $_GET['tahun'] != '')) {
             $bulan = $_GET['bulan'];
@@ -85,7 +81,7 @@ class Pembayaran extends CI_Controller
         }
 
         $data['cetakPembayaran'] = $this->db->query("SELECT tb_transaksi.*, 
-        tb_masyarakat.nama_lengkap, tb_masyarakat.alamat, 
+        tb_masyarakat.nama_lengkap, tb_masyarakat.alamat,  tb_masyarakat.rt, tb_masyarakat.rw,
         tb_masyarakat.kelurahan, tb_masyarakat.kecamatan
         FROM tb_transaksi 
         INNER JOIN tb_masyarakat ON tb_transaksi.nik=tb_masyarakat.nik
@@ -93,11 +89,12 @@ class Pembayaran extends CI_Controller
         WHERE tb_transaksi.bulan='$bulantahun' 
         ORDER BY tb_masyarakat.nama_lengkap ASC")->result();
 
-        // var_dump($query);
-        // die();
+        $this->load->library('pdf');
+        $html = $this->load->view('pembayaran/cetakPemb', $data, true);
+        $this->pdf->createPdf($html, 'pembayaran-filter-kelurahan', false);
 
-        $this->load->view('templates/header', $data);
-        $this->load->view('pembayaran/cetakPemb', $data);
+        // $this->load->view('templates/header', $data);
+        // $this->load->view('pembayaran/cetakPemb', $data);
     }
 
     public function deletePemb($id)
@@ -148,5 +145,24 @@ class Pembayaran extends CI_Controller
         $this->load->view('templates/topbar', $data);
         $this->load->view('pembayaran/filterLaporan', $data);
         $this->load->view('templates/footer');   
+    }
+
+    public function printLaporanByKelurahan(){
+        $data['title'] = 'Laporan Data Pembayaran Per-Kelurahan';
+        $data['masyarakat'] = $this->DataModel->get_data('tb_masyarakat')->result();
+        $data['user'] = $this->db->get_where('tb_user', ['email' =>
+        $this->session->userdata('email')])->row_array();
+        $key = $this->input->post('kelurahan');
+        $data['cetakPembayaran'] = $this->db->query("SELECT tb_transaksi.*, 
+            tb_masyarakat.nama_lengkap, tb_masyarakat.alamat, tb_masyarakat.rt, tb_masyarakat.rw,
+            tb_masyarakat.kelurahan, tb_masyarakat.kecamatan
+            FROM tb_transaksi 
+            INNER JOIN tb_masyarakat ON tb_transaksi.nik=tb_masyarakat.nik
+            INNER JOIN tb_seri ON tb_masyarakat.seri=tb_seri.seri 
+            where tb_transaksi.kelurahan = '$key'
+            ORDER BY tb_masyarakat.nama_lengkap ASC")->result();
+        $this->load->library('pdf');
+        $html = $this->load->view('pembayaran/cetakByKelurahan', $data, true);
+        $this->pdf->createPdf($html, 'pembayaran-filter-kelurahan', false);
     }
 }
