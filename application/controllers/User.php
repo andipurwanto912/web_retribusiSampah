@@ -63,7 +63,8 @@ class User extends CI_Controller
                     $this->db->set('photo', $new_image);
                 } else {
                   $this->session->set_flashdata('pesan', '<div class="alert alert-danger" role="alert">' . $this->upload->display_errors() . '</div>');
-                  redirect('user/editProfile');                  // redirect('user/editProfile');
+                  redirect('user/editProfile');                  
+                  // redirect('user/editProfile');
                 }
             }
             $this->db->set('nama_lengkap', $name);

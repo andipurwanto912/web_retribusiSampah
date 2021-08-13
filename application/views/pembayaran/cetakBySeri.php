@@ -61,17 +61,18 @@
 	<hr class="line-title">
 	<p align="center" style="font-family: 'Times New Roman', Times, serif; font-size: large;">
 		Data Pembayaran Retribusi Sampah Berdasarkan Seri<br>
-        <!-- <?= $cetakPembayaran['kelurahan'] ?><br> -->
+		<!-- <?= $cetakPembayaran['kelurahan'] ?><br> -->
 		Kecamatan Tegal Timur
-    </p>
+	</p>
 	<table class="table table-striped table-bordered table-hover" style="font-family: 'Times New Roman', Times, serif;">
 		<thead>
 			<tr class="">
 				<th>No</th>
+				<th>Bulan/Tahun</th>
 				<th>NIK</th>
 				<th>Nama</th>
 				<th>Alamat</th>
-				<th>RT/RW</th>
+				<!--<th>RT/RW</th>-->
 				<th>Kelurahan</th>
 				<th>Seri</th>
 				<th>Jumlah Bayar</th>
@@ -85,10 +86,11 @@
 
 			<tr class="">
 				<td><?= $no++ ?></td>
+				<td><?= $p->bulan ?></td>
 				<td><?= $p->nik ?></td>
 				<td><?= $p->nama_lengkap ?></td>
 				<td><?= $p->alamat ?></td>
-				<td><?= $p->rt ?>/<?= $p->rw ?></td>
+				<!--<td><?= $p->rt ?>/<?= $p->rw ?></td>-->
 				<td><?= $p->kelurahan ?></td>
 				<td><?= $p->seri ?></td>
 				<td style="">Rp. <?= number_format($p->jml_bayar, 0, ',', '.') ?></td>
@@ -103,12 +105,43 @@
 		</tfoot>
 	</table>
 
-	<!-- <div style="float: right">
-		<p>Tegal, <?= date('d M Y')?> <br><?= $user['nama_lengkap'] ?></p>
-		<br>
-        <br>
-		<p>______________________</p>
-	</div> -->
+	<!-- tanggal-bulan-tahun dan tanda tangan cetak laporan -->
+	<div>
+		<?php
+				function tgl_indo($tanggal){
+					$bulan = array (
+						1 => 'Januari',
+						'Februari',
+						'Maret',
+						'April',
+						'Mei',
+						'Juni',
+						'Juli',
+						'Agustus',
+						'September',
+						'Oktober',
+						'November',
+						'Desember'
+					);
+					$pecahkan = explode('-', $tanggal);		
+					// variabel pecahkan 0 = tanggal
+					// variabel pecahkan 1 = bulan
+					// variabel pecahkan 2 = tahun				
+					return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
+				}
+				?>
+		<div style="float:right; font-family: 'Times New Roman', Times, serif">
+			Tegal, <?=tgl_indo(date('Y-m-d'));?>
+			<br />Bendahara Penerima
+			<br />
+			<br />
+			<br />
+			<br />
+			____________________
+			<p><?= $user['nama_lengkap'] ?></p>
+		</div>
+		<div style="clear:both"></div>
+	</div>
 </body>
 
 </html>

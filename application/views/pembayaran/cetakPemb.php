@@ -74,7 +74,7 @@
 		</table>
 		<hr class="line-title">
 		<p align="center" style="font-family: 'Times New Roman', Times, serif; font-size: large;">
-			Data Pembayaran Retribusi Sampah Per-Bulan<br>
+			Data Pembayaran Retribusi Sampah Berdasarkan Bulan<br>
             <!-- <tr>
 				<td>Bulan</td>
 				<td>:</td>
@@ -127,16 +127,43 @@
 		</tfoot>
 		</table>
 
-		<!-- <table width="100%" style="font-family: 'Times New Roman', Times, serif;">
-			<td></td>
-			<td width="100px">
-				<p>Tegal, <?= date('d M Y')?> <br><?= $user['nama_lengkap'] ?></p>
-				<br>
-				<br>
-				<p>______________________</p>
-			</td>
-
-		</table> -->
+		<!-- tanggal-bulan-tahun dan tanda tangan cetak laporan -->
+		<div>
+			<?php
+				function tgl_indo($tanggal){
+					$bulan = array (
+						1 => 'Januari',
+						'Februari',
+						'Maret',
+						'April',
+						'Mei',
+						'Juni',
+						'Juli',
+						'Agustus',
+						'September',
+						'Oktober',
+						'November',
+						'Desember'
+					);
+					$pecahkan = explode('-', $tanggal);		
+					// variabel pecahkan 0 = tanggal
+					// variabel pecahkan 1 = bulan
+					// variabel pecahkan 2 = tahun				
+					return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
+				}
+				?>
+			<div style="float:right; font-family: 'Times New Roman', Times, serif">
+				Tegal, <?=tgl_indo(date('Y-m-d'));?>
+				<br />Bendahara Penerima
+				<br />
+				<br />
+				<br />
+				<br />
+				__________________
+				<p><?= $user['nama_lengkap'] ?></p>
+			</div>
+			<div style="clear:both"></div>
+		</div>
 	</body>
 
 </html>

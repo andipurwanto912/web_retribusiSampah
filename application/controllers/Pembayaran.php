@@ -65,7 +65,7 @@ class Pembayaran extends CI_Controller
     
     public function cetakPembayaran()
     {
-        $data['title'] = 'Laporan Data Pembayaran Per-Bulan';
+        $data['title'] = 'Laporan Data Pembayaran Berdasarkan Bulan';
         $data['user'] = $this->db->get_where('tb_user', ['email' => $this->session->userdata('email')])->row_array();
         $data['seri'] = $this->DataModel->get_data('tb_seri')->result();
         $data['masyarakat'] = $this->DataModel->get_data('tb_masyarakat')->result();
@@ -91,7 +91,7 @@ class Pembayaran extends CI_Controller
 
         $this->load->library('pdf');
         $html = $this->load->view('pembayaran/cetakPemb', $data, true);
-        $this->pdf->createPdf($html, 'pembayaran-filter-kelurahan', false);
+        $this->pdf->createPdf($html, 'Laporan Data Pembayaran PerBulan', false);
 
         // $this->load->view('templates/header', $data);
         // $this->load->view('pembayaran/cetakPemb', $data);
@@ -149,7 +149,7 @@ class Pembayaran extends CI_Controller
 
     //filter Kelurahan
     public function printLaporanByKelurahan(){
-        $data['title'] = 'Laporan Data Pembayaran Per-Kelurahan';
+        $data['title'] = 'Laporan Data Pembayaran Berdasarkan Kelurahan';
         $data['masyarakat'] = $this->DataModel->get_data('tb_masyarakat')->result();
         $data['user'] = $this->db->get_where('tb_user', ['email' =>
         $this->session->userdata('email')])->row_array();
@@ -164,12 +164,12 @@ class Pembayaran extends CI_Controller
             ORDER BY tb_masyarakat.nama_lengkap ASC")->result();
         $this->load->library('pdf');
         $html = $this->load->view('pembayaran/cetakByKelurahan', $data, true);
-        $this->pdf->createPdf($html, 'pembayaran-filter-kelurahan', false);
+        $this->pdf->createPdf($html, 'Laporan Data Pembayaran Kelurahan', false);
     }
 
     //filter Seri
     public function printLaporanBySeri(){
-        $data['title'] = 'Laporan Data Pembayaran Per-Seri';
+        $data['title'] = 'Laporan Data Pembayaran Berdasarkan Seri';
         $data['masyarakat'] = $this->DataModel->get_data('tb_masyarakat')->result();
         $data['user'] = $this->db->get_where('tb_user', ['email' =>
         $this->session->userdata('email')])->row_array();
@@ -184,6 +184,6 @@ class Pembayaran extends CI_Controller
             ORDER BY tb_masyarakat.nama_lengkap ASC")->result();
         $this->load->library('pdf');
         $html = $this->load->view('pembayaran/cetakBySeri', $data, true);
-        $this->pdf->createPdf($html, 'pembayaran-filter-seri', false);
+        $this->pdf->createPdf($html, 'Laporan Data Pembayaran Seri', false);
     }
 }

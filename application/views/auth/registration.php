@@ -19,13 +19,13 @@
                         </button>', '</div>');
                     ?>
 
-					<?= form_error('no_hp', '<div class="alert alert-danger alert-dismissible show fade" role="alert">
+					<?= form_error('role_id', '<div class="alert alert-danger alert-dismissible show fade" role="alert">
                         <button class="close" data-dismiss="alert">
                           <span>×</span>
                         </button>', '</div>');
                     ?>
-
-					<?= form_error('role_id', '<div class="alert alert-danger alert-dismissible show fade" role="alert">
+                    
+					<?= form_error('no_hp', '<div class="alert alert-danger alert-dismissible show fade" role="alert">
                         <button class="close" data-dismiss="alert">
                           <span>×</span>
                         </button>', '</div>');
@@ -105,11 +105,13 @@
 						<input id="name" type="text" class="form-control" name="name">
 						<?= form_error('name', '<small class="text-danger">', '</small>'); ?>
 					</div>
+
 					<div class="form-group">
 						<label for="email">email</label>
 						<input id="email" type="email" class="form-control" name="email">
 						<?= form_error('email', '<small class="text-danger">', '</small>'); ?>
 					</div>
+
 					<div class="form-group">
 						<label for="no_hp">No Hp</label>
 						<input id="no_hp" onkeypress="return hanyaAngka(event)" type="type" class="form-control"

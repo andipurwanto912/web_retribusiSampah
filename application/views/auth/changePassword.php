@@ -21,6 +21,7 @@
 									<input pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$"
 										id="password1" type="password" class="form-control pwstrength"
 										data-indicator="pwindicator" name="password1" tabindex="2" required>
+											<!--<input type="checkbox" style="margin-top: 10px;" onclick="myFunction()"> Lihat Password-->
 									<small id="passwordHelpBlock" class="form-text text-muted">
 										min 8 karakter, Huruf Besar, Kecil dan Angka
 									</small>
@@ -32,11 +33,11 @@
 									<input pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$"
 										id="password2" type="password" class="form-control" name="password2"
 										tabindex="2" required>
-								</div>
 								<small id="passwordHelpBlock" class="form-text text-muted">
 									min 8 karakter, Huruf Besar, Kecil dan Angka
 								</small>
 								<?= form_error('password2', '<small class="text-danger">', '</small>'); ?>
+								</div>
 								<div class="form-group">
 									<button type="submit" class="btn btn-primary btn-lg btn-block" tabindex="4">
 										Change Password
@@ -53,3 +54,16 @@
 		</div>
 	</section>
 </div>
+
+<!-- show password -->
+<script>
+	function myFunction() {
+		var x = document.getElementById("password1");
+		if (x.type === "password1") {
+			x.type = "text";
+		} else {
+			x.type = "password1";
+		}
+	}
+
+</script>

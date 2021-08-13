@@ -100,7 +100,7 @@ public function registration()
     $data['role'] = $this->db->get('user_role')->result_array();          
     // $data['role'] = $this->db->get_where('user_role',['id' => $role_id])->row_array();
     $this->form_validation->set_rules('name', 'Nama Lengkap', 'required|trim');
-    $this->form_validation->set_rules('no_hp', 'No HP sudah terdaftar', 'required|trim|min_length[12]|max_length[13]|is_unique[tb_user.no_hp]');
+    $this->form_validation->set_rules('no_hp', 'No HP sudah terdaftar', 'required|trim|min_length[11]|max_length[13]|is_unique[tb_user.no_hp]');
     $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email|is_unique[tb_user.email]', ['is_unique' => 'email sudah terdaftar!']);    
     $this->form_validation->set_rules('password', 'Password', 'required|trim|min_length[8]|max_length[20]|matches[password2]', ['matches' => 'password tidak sama!', 'min_length' => 'password min 8 karakter!']);
     $this->form_validation->set_rules('password2', 'Password', 'required|trim|matches[password]');
@@ -211,7 +211,7 @@ public function registration()
                         ' . $email . ' sudah telah aktivasi!
                       </div>
                     </div>');
-          redirect('auth/registration');
+          redirect('auth');
         } else {
           $this->db->delete('tb_user', ['email' => $email]);
           $this->db->delete('user_token', ['email' => $email]);
@@ -224,7 +224,7 @@ public function registration()
                         token expired!
                       </div>
                     </div>');
-          redirect('auth/registration');
+          redirect('auth');
         }
       } else {
         $this->session->set_flashdata('pesan', '<div class="alert alert-danger alert-dismissible show fade">
@@ -235,7 +235,7 @@ public function registration()
                         akun aktivasi failed, token salah!
                       </div>
                     </div>');
-        redirect('auth/registration');
+        redirect('auth');
       }
     } else {
       $this->session->set_flashdata('pesan', '<div class="alert alert-danger alert-dismissible show fade">
@@ -246,7 +246,7 @@ public function registration()
                         akun aktivasi failed, email salah!
                       </div>
                     </div>');
-      redirect('auth/registration');
+      redirect('auth');
     }
   }
 

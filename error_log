@@ -1,0 +1,3 @@
+[07-Aug-2021 16:35:38 UTC] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in /home/retribu1/public_html/retribusi/vendor/dompdf/dompdf/src/FrameReflower/Text.php on line 424
+[12-Aug-2021 06:39:33 UTC] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in /home/retribu1/public_html/retribusi/vendor/dompdf/dompdf/lib/Cpdf.php on line 5719
+[12-Aug-2021 06:45:45 UTC] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in /home/retribu1/public_html/retribusi/vendor/dompdf/dompdf/src/Css/Style.php on line 966
