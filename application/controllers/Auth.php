@@ -15,21 +15,51 @@ class Auth extends CI_Controller
 
   public function index()
   {
-    if ($this->session->userdata('email')) {
-      redirect('user');
+    $role_id = $this->session->userdata('role_id');
+    if($role_id != NULL){
+      if($role_id == 1){
+        redirect('admin');
+      }else{
+        $this->session->unset_userdata('email');
+        $this->session->unset_userdata('role_id');
+        $this->session->set_flashdata('pesan', '<div class="alert alert-warning alert-dismissible show fade">
+                      <div class="alert-body">
+                        <button class="close" data-dismiss="alert">
+                          <span>×</span>
+                        </button>
+                        Anda bukan admin
+                      </div>
+                    </div>');
+        $data['title'] = "RS | Login";
+        $this->load->view('templates/auth_header', $data);
+        $this->load->view('auth/login');
+        $this->load->view('templates/auth_footer');
+        // echo 'BUKAN ADMIN';
+        
+        redirect('auth');
+      }
+    }else{
+      $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email');
+      $this->form_validation->set_rules('password', 'Password', 'trim|required');
+      if ($this->form_validation->run() == false) {
+        $data['title'] = "RS | Login";
+        $this->load->view('templates/auth_header', $data);
+        $this->load->view('auth/login');
+        $this->load->view('templates/auth_footer');
+      } 
+      else {
+        //success
+        $this->_login();
+      }
     }
+    
+    // if ( $role_id == 1) {
+    //   redirect('admin');
+    // }else{
+    //   $this->logout();
+    // }
 
-    $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email');
-    $this->form_validation->set_rules('password', 'Password', 'trim|required');
-    if ($this->form_validation->run() == false) {
-      $data['title'] = "RS | Login";
-      $this->load->view('templates/auth_header', $data);
-      $this->load->view('auth/login');
-      $this->load->view('templates/auth_footer');
-    } else {
-      //success
-      $this->_login();
-    }
+    
   }
 
   private function _login()
@@ -51,11 +81,13 @@ class Auth extends CI_Controller
           ];
 
           $this->session->set_userdata($data);
+          
           if ($user['role_id'] == 1) {
             redirect('admin');
-          }else{
-            redirect('user');
+          }else {
+            redirect('auth');  
           }
+          die();
         } else {
           # code...
           $this->session->set_flashdata('pesan', '<div class="alert alert-danger alert-dismissible show fade">

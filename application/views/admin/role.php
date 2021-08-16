@@ -30,7 +30,7 @@
                                         <tr>
                                             <th class="">#</th>
                                             <th>Role</th>
-                                            <th>Action</th>
+                                            <!-- <th>Action</th> -->
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -39,11 +39,11 @@
                                             <tr class="">
                                                 <th scope=" row"><?= $i; ?></th>
                                                 <td><?= $r['role']; ?></td>
-                                                <td>
+                                                <!-- <td>
                                                     <a href="<?= base_url('admin/roleaccess/') . $r['id']; ?>">
                                                         <button class="btn btn-warning btn-sm"> <i class="fas fa-universal-access"></i>Access</button>
                                                     </a>
-                                                </td>
+                                                </td> -->
                                             </tr>
                                             <?php $i++; ?>
                                         <?php endforeach; ?>

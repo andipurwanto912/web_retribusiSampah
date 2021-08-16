@@ -67,7 +67,7 @@
 		<tr>
 			<p
 				style="text-align:center; font-size: large; font-family: 'Times New Roman', Times, serif;">
-				Data Pembayaran Berdasarkan Kelurahan <br>
+				Data Pembayaran Berdasarkan Masyarakat Belum Bayar <br>
 				Kecamatan Tegal Timur
 			</p>
 			<!-- <br /> -->
@@ -86,69 +86,22 @@
 			<!--<th>RT/RW</th>-->
 			<th>Kelurahan</th>
 			<th>Seri</th>
-			<th>Jumlah Bayar</th>
 		</tr>
 	</thead>
 	<tbody>
 		<?php 
-		$no = 1;
-		$total = 0;
-		foreach ($cetakPembayaran as $p) : $total += $p->jml_bayar?>
+			$no = 1;
+			$total = 0;
+			foreach ($cetakPembayaran as $p) : ?>
 		<tr class="">
 			<td><?= $no++ ?></td>
-			<td><?= $p->bulan ?></td>
+			<td><?= $bulantahun ?></td>
 			<td><?= $p->nik ?></td>
 			<td><?= $p->nama_lengkap ?></td>
 			<td><?= $p->alamat ?></td>
-			<!--<td><?= $p->rt ?>/<?= $p->rw ?></td>-->
 			<td><?= $p->kelurahan ?></td>
 			<td><?= $p->seri ?></td>
-			<td style="">Rp. <?= number_format($p->jml_bayar, 0, ',', '.') ?></td>
 		</tr>
 		<?php endforeach; ?>
 	</tbody>
-	<tfoot>
-		<tr>
-			<td colspan="7" style="text-align: center; font-weight : bold">TOTAL</td>
-			<td class="">Rp. <?= number_format($total, 0, '', '.') ?></td>
-		</tr>
-	</tfoot>
 </table>
-
-<!-- tanggal-bulan-tahun dan tanda tangan cetak laporan -->
-<div>
-	<?php
-		function tgl_indo($tanggal){
-			$bulan = array (
-					1 => 'Januari',
-						'Februari',
-						'Maret',
-						'April',
-						'Mei',
-						'Juni',
-						'Juli',
-						'Agustus',
-						'September',
-						'Oktober',
-						'November',
-						'Desember'
-					);
-				$pecahkan = explode('-', $tanggal);		
-					// variabel pecahkan 0 = tanggal
-					// variabel pecahkan 1 = bulan
-					// variabel pecahkan 2 = tahun				
-			return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
-			}
-	?>
-	<div style="float:right; margin-top: 10px; font-family: 'Times New Roman', Times, serif">
-		Tegal, <?=tgl_indo(date('Y-m-d'));?>
-		<br />Bendahara Penerima
-		<br />
-		<br />
-		<br />
-		<br />
-		____________________
-		<br />
-		<?= $user['nama_lengkap'] ?>
-	</div>
-</div>

@@ -186,4 +186,47 @@ class Pembayaran extends CI_Controller
         $html = $this->load->view('pembayaran/cetakBySeri', $data, true);
         $this->pdf->createPdf($html, 'Laporan Data Pembayaran Seri', false);
     }
+
+    public function printLaporanByBelum(){
+        $data['title'] = 'Laporan Data Pembayaran Masyarakat';
+        $data['user'] = $this->db->get_where('tb_user', ['email' =>
+            $this->session->userdata('email')])->row_array();
+        $bulan = $this->input->post('bulan');
+        $tahun = $this->input->post('tahun');
+        $data['bulantahun'] = $bulan.$tahun;
+        $data['semuaMasyarakat'] = $this->db->query("SELECT * FROM tb_masyarakat")->result();
+        $data['transaksi'] = $this->db->query("SELECT * FROM tb_transaksi WHERE bulan='$bulan$tahun'")->result();
+        
+        $results = [];
+
+        foreach($data['semuaMasyarakat'] as $masyarakat){
+            array_push($results, (object) [
+                'nik' => $masyarakat->nik,
+                'nama_lengkap' => $masyarakat->nama_lengkap,
+                'alamat' => $masyarakat->alamat,
+                'kelurahan' => $masyarakat->kelurahan,
+                'seri' => $masyarakat->seri,
+                'status' => false
+            ]);
+        }
+
+        foreach($results as $result){
+            foreach ($data['transaksi'] as $transaksi) {
+                if($result->nik === $transaksi->nik){
+                    $result->status = true;
+                }
+            }
+        }
+
+        $data['cetakPembayaran'] = [];
+        foreach ($results as $belum) {
+            if($belum->status == false){
+                array_push($data['cetakPembayaran'] , $belum);
+            }
+        }
+
+        $this->load->library('pdf');
+        $html = $this->load->view('pembayaran/cetakByBelum', $data, true);
+        $this->pdf->createPdf($html, 'Laporan Data Pembayaran Masyarakat', false);
+    }
 }
