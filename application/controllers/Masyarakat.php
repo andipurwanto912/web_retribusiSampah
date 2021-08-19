@@ -245,7 +245,7 @@ class Masyarakat extends CI_Controller
   }
 
   public function cetakMasy(){
-    $data['title'] = 'Data Masyarakat';
+    $data['title'] = 'Data Masyarakat Kecamatan Tegal Timur';
     $data['user'] = $this->db->get_where('tb_user', ['email' =>
     $this->session->userdata('email')])->row_array();
     $data['seri'] = $this->DataModel->get_data('tb_seri')->result();

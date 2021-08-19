@@ -1,3 +1,4 @@
+<title><?=$title?></title>
 <style>
 	.line-title {
 		border: 3px;
@@ -105,3 +106,41 @@
 		<?php endforeach; ?>
 	</tbody>
 </table>
+
+<!-- tanggal-bulan-tahun dan tanda tangan cetak laporan -->
+<div>
+	<?php
+		function tgl_indo($tanggal){
+			$bulan = array (
+					1 => 'Januari',
+						'Februari',
+						'Maret',
+						'April',
+						'Mei',
+						'Juni',
+						'Juli',
+						'Agustus',
+						'September',
+						'Oktober',
+						'November',
+						'Desember'
+					);
+				$pecahkan = explode('-', $tanggal);		
+					// variabel pecahkan 0 = tanggal
+					// variabel pecahkan 1 = bulan
+					// variabel pecahkan 2 = tahun				
+			return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
+			}
+	?>
+	<div style="float:right; margin-top: 10px; font-family: 'Times New Roman', Times, serif">
+		Tegal, <?=tgl_indo(date('Y-m-d'));?>
+		<br />Bendahara Penerima
+		<br />
+		<br />
+		<br />
+		<br />
+		____________________
+		<br />
+		<?= $user['nama_lengkap'] ?>
+	</div>
+</div>

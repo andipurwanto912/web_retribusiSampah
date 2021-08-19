@@ -1,3 +1,4 @@
+<title><?=$title?></title>
 <style>
 	.line-title {
 		border: 3px;
