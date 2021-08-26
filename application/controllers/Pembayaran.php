@@ -44,6 +44,12 @@ class Pembayaran extends CI_Controller
             $bulantahun = $bulan . $tahun;
         }
 
+        // $bulan = $this->input->post('bulan');
+        // $tahun = $this->input->post('tahun');
+        $data['semuaMasyarakat'] = $this->db->query("SELECT * FROM tb_masyarakat")->result();
+        $data['bulantahun'] = $bulan.$tahun;
+        $data['transaksi'] = $this->db->query("SELECT * FROM tb_transaksi WHERE bulan='$bulan$tahun'")->result();
+
         $data['pembayaran'] = $this->db->query("SELECT tb_transaksi.*, 
         tb_masyarakat.nama_lengkap, tb_masyarakat.alamat, 
         tb_masyarakat.kelurahan, tb_masyarakat.kecamatan, tb_masyarakat.seri
@@ -55,6 +61,35 @@ class Pembayaran extends CI_Controller
 
         // var_dump($query);
         // die();
+
+        $results = [];
+
+        foreach($data['semuaMasyarakat'] as $masyarakat){
+            array_push($results, (object) [
+                'nik' => $masyarakat->nik,
+                'nama_lengkap' => $masyarakat->nama_lengkap,
+                'alamat' => $masyarakat->alamat,
+                'kelurahan' => $masyarakat->kelurahan,
+                'seri' => $masyarakat->seri,
+                'status' => false
+            ]);
+        }
+
+        foreach($results as $result){
+            foreach ($data['transaksi'] as $transaksi) {
+                if($result->nik === $transaksi->nik){
+                    $result->status = true;
+                }
+            }
+        }
+
+        $data['cetakPembayaran'] = [];
+        foreach ($results as $belum) {
+            if($belum->status == false){
+                array_push($data['cetakPembayaran'] , $belum);
+            }
+        }
+
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
@@ -191,12 +226,31 @@ class Pembayaran extends CI_Controller
         $data['title'] = 'Laporan Data Pembayaran Masyarakat';
         $data['user'] = $this->db->get_where('tb_user', ['email' =>
             $this->session->userdata('email')])->row_array();
-        $bulan = $this->input->post('bulan');
-        $tahun = $this->input->post('tahun');
+        // $bulan = $this->input->post('bulan');
+        // $tahun = $this->input->post('tahun');
+        if ((isset($_GET['bulan']) && $_GET['bulan'] != '') && (isset($_GET['tahun']) && $_GET['tahun'] != '')) {
+            $bulan = $_GET['bulan'];
+            $tahun = $_GET['tahun'];
+            $bulantahun = $bulan . $tahun;
+        } else {
+            $bulan = date('m');
+            $tahun = date('Y');
+            $bulantahun = $bulan . $tahun;
+        }
+
         $data['bulantahun'] = $bulan.$tahun;
         $data['semuaMasyarakat'] = $this->db->query("SELECT * FROM tb_masyarakat")->result();
         $data['transaksi'] = $this->db->query("SELECT * FROM tb_transaksi WHERE bulan='$bulan$tahun'")->result();
-        
+
+        $data['cetakPembayaran'] = $this->db->query("SELECT tb_transaksi.*, 
+        tb_masyarakat.nama_lengkap, tb_masyarakat.alamat, 
+        tb_masyarakat.kelurahan, tb_masyarakat.kecamatan, tb_masyarakat.seri
+        FROM tb_transaksi 
+        INNER JOIN tb_masyarakat ON tb_transaksi.nik=tb_masyarakat.nik
+        INNER JOIN tb_seri ON tb_masyarakat.seri=tb_seri.seri
+        WHERE tb_transaksi.bulan='$bulantahun' 
+        ORDER BY tb_masyarakat.nama_lengkap ASC")->result();
+
         $results = [];
 
         foreach($data['semuaMasyarakat'] as $masyarakat){

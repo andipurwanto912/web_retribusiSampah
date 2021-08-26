@@ -5,13 +5,13 @@
 			<h1><?= $title; ?></h1>
 		</div>
 		<class="section-body">
-			<h2 class="section-title">Tabel Data Pembayaran</h2>
+			<h2 class="section-title">Tabel Data Pembayaran Masyarakat</h2>
 			<div class="card mx-auto">
 				<div class="card-header bg-primary text-white ">
 					Filter Laporan Data Pembayaran Belum Bayar
 				</div>
 				<div class="card-body">
-					<form class="form-inline" method="POST" action="<?= base_url('pembayaran/printLaporanByBelum') ?>">
+					<form class="form-inline">
 						<div class="form-group mx-sm-3 mb-2">
 							<label>Bulan: </label>
 							<select class="form-control selectric" name="bulan" id="bulan">
@@ -51,14 +51,67 @@
                                 $bulantahun = $bulan . $tahun;
                             }
                         ?>
-                        <!-- <button type="submit" class="btn btn-info mb-2 ml-auto"><i class="fas fa-eye"></i> Show
-							Data</button> -->
-						<button type="submit" target="_BLANK" class="btn btn-success mb-2 ml-auto"><i
-								class="fas fa-print"></i>
-							Cetak Data Belum Bayar</button>
+						<button type="submit" class="btn btn-info mb-2 ml-auto"><i class="fas fa-eye"></i> Show
+							Data</button>
+							<a href="<?=('pembayaran/printLaporanByBelum?bulan='.$bulan),'&tahun='.$tahun?>"
+							class="btn btn-success mb-2 ml-3"><i class="fas fa-print"></i> Cetak Data Masyarakat Belum Bayar</a>
 					</form>
 				</div>
 			</div>
+
+			<?php
+            if ((isset($_GET['bulan']) && $_GET['bulan'] != '') && (isset($_GET['tahun']) && $_GET['tahun'] != '')) {
+                $bulan = $_GET['bulan'];
+                $tahun = $_GET['tahun'];
+                $bulantahun = $bulan . $tahun;
+            } else {
+                $bulan = date('m');
+                $tahun = date('Y');
+                $bulantahun = $bulan . $tahun;
+            }
+            ?>
+
+			<div class="alert alert-info">
+				Menampilkan Data Masyarakat Belum Bayar pada Bulan: <span class="font-weight-bold"><?= $bulan ?></span> Tahun:
+				<span class="font-weight-bold"><?= $tahun ?> </span>
+			</div>
+
+			<div class="card">
+				<div class="card-body">
+					<div class="table-responsive">
+						<table class="table table-striped table-hover" id="table-1">
+							<thead>
+								<tr>
+									<th class="">#</th>
+									<th>BulanTahun</th>
+									<th>NIK</th>
+									<th>Nama</th>
+									<th>Seri</th>
+									<th>Jumlah</th>
+									<th>Keterangan</th>
+								</tr>
+							</thead>
+							<tbody>
+								<?php $no = 1;
+                                    foreach ($cetakPembayaran as $p) : ?>
+								<tr>
+									<td><?= $no++ ?></td>
+									<td><?= $bulantahun ?></td>
+									<td><?= $p->nik ?></td>
+									<td><?= $p->nama_lengkap ?></td>
+									<td><?= $p->seri ?></td>
+									<td><?= $p->kelurahan ?></td>
+									<td>
+									<span class="badge bg-warning text-dark">Belum Bayar</span>
+									</td>
+								</tr>
+								<?php endforeach; ?>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+
 			<div class="card">
 				<div class="card-header bg-primary text-white">
 					Filter Data Pembayaran
@@ -121,6 +174,7 @@
 				</div>
 			</div>
 
+			<!-- data masyarakat yang sudah melakukan pembayaran -->
 			<?php
             if ((isset($_GET['bulan']) && $_GET['bulan'] != '') && (isset($_GET['tahun']) && $_GET['tahun'] != '')) {
                 $bulan = $_GET['bulan'];
@@ -145,10 +199,11 @@
 			<div class="card">
 				<div class="card-body">
 					<div class="table-responsive">
-						<table class="table table-striped table-hover" id="table-1">
+						<table class="table table-striped table-hover" id="table-2">
 							<thead>
 								<tr>
 									<th class="">#</th>
+									<th>BulanTahun</th>
 									<th>NIK</th>
 									<th>Nama</th>
 									<th>Seri</th>
@@ -161,6 +216,7 @@
                                     foreach ($pembayaran as $p) : ?>
 								<tr>
 									<td><?= $no++ ?></td>
+									<td><?= $bulantahun ?></td>
 									<td><?= $p->nik ?></td>
 									<td><?= $p->nama_lengkap ?></td>
 									<td><?= $p->seri ?></td>

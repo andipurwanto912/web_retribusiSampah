@@ -1,8 +1,8 @@
 <div class="main-sidebar">
 	<aside id="sidebar-wrapper">
 		<div class="sidebar-brand">
-		    <img src="<?= base_url('assets') ?>/img/tegal.png" alt="" width="40" class="">
-			<a href="<?= base_url('admin') ?>">RETRIBUSI SAMPAH</a>
+		    <img src="<?= base_url('assets') ?>/img/logodlh.png" alt="" width="230" class="">
+			<!-- <a href="<?= base_url('admin') ?>">RETRIBUSI SAMPAH</a> -->
 		</div>
 		<div class="sidebar-brand sidebar-brand-sm">
 			<a href="<?= base_url('admin')?>">RS</a>
