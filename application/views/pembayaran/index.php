@@ -188,7 +188,7 @@
             ?>
 
 			<div class="alert alert-info">
-				Menampilakan Data Pembayaran pada Bulan: <span class="font-weight-bold"><?= $bulan ?></span> Tahun:
+				Menampilkan Data Pembayaran dari Masyarakat pada Bulan: <span class="font-weight-bold"><?= $bulan ?></span> Tahun:
 				<span class="font-weight-bold"><?= $tahun ?> </span>
 			</div>
 
