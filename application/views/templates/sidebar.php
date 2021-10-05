@@ -1,14 +1,16 @@
 <div class="main-sidebar">
 	<aside id="sidebar-wrapper">
 		<div class="sidebar-brand">
-		    <img src="<?= base_url('assets') ?>/img/logodlh.png" alt="" width="230" class="">
-			<!-- <a href="<?= base_url('admin') ?>">RETRIBUSI SAMPAH</a> -->
+			<a href="<?= base_url('admin') ?>"">
+		    <img src=" <?= base_url('assets') ?>/img/logodlh.png" alt="" width="230" class="">
+			</a>
 		</div>
 		<div class="sidebar-brand sidebar-brand-sm">
-			<a href="<?= base_url('admin')?>">RS</a>
+			<a href="<?= base_url('admin') ?>">
+				<img src="<?= base_url('assets') ?>/img/logo.png" alt="" width="25" class=""> </a>
 		</div>
 		<ul class="sidebar-menu">
-		<?php
+			<?php
             $role_id = $this->session->userdata('role_id');
             $queryMenu = "SELECT `user_menu`.`id`, `menu`
                             FROM `user_menu` JOIN `user_access_menu`
@@ -17,9 +19,7 @@
                         ORDER BY `user_access_menu`.`menu_id` ASC 
                         ";
             $menu = $this->db->query($queryMenu)->result_array();
-            // var_dump($menu);
-            // die;
-        ?>
+		    ?>
 			<!-- LOOPING MENU -->
 			<?php foreach ($menu as $m) : ?>
 			<li class="menu-header">

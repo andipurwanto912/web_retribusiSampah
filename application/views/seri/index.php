@@ -98,7 +98,7 @@
                     </div>
                     <div class="form-group">
                         <label>Tagihan</label>
-                        <input type="number" class="form-control" id="tagihan" name="tagihan" required>
+                        <input type="text" onkeypress="return hanyaAngka(event)" class="form-control" id="tagihan" name="tagihan" required>
                     </div>
                 </div>
                 <div class="modal-footer">

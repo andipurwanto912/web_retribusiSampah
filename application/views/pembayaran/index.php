@@ -87,8 +87,8 @@
 									<th>NIK</th>
 									<th>Nama</th>
 									<th>Seri</th>
-									<th>Jumlah</th>
-									<th>Keterangan</th>
+									<th>Kelurahan</th>
+									<!-- <th>Keterangan</th> -->
 								</tr>
 							</thead>
 							<tbody>
@@ -101,9 +101,9 @@
 									<td><?= $p->nama_lengkap ?></td>
 									<td><?= $p->seri ?></td>
 									<td><?= $p->kelurahan ?></td>
-									<td>
+									<!-- <td>
 									<span class="badge bg-warning text-dark">Belum Bayar</span>
-									</td>
+									</td> -->
 								</tr>
 								<?php endforeach; ?>
 							</tbody>

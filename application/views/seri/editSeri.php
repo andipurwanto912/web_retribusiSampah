@@ -45,7 +45,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <label>Tagihan</label>
-                                                <input type="number" class="form-control" id="tagihan" name="tagihan" value="<?= $s->tagihan ?>">
+                                                <input type="text" onkeypress="return hanyaAngka(event)" class="form-control" id="tagihan" name="tagihan" value="<?= $s->tagihan ?>">
                                             </div>
                                             <div class="form-group">
                                                 <div class="text-right">
